@@ -1,0 +1,70 @@
+/* GENERATED por recursos/design-system/scripts/sync-tokens.mjs — NÃO EDITAR À MÃO.
+   Fonte: recursos/design-system/sistema/tokens/base.css
+   Para mudar: edite a fonte e rode `npm run sync:tokens`. */
+
+/* ==========================================================================
+   BASE — resets + global element defaults (POP identity).
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background-color: var(--surface-bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+}
+
+/* Headings — condensed all-caps Bebas Neue */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-normal);
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+p { margin: 0; font-size: var(--text-body); color: var(--text-muted); }
+
+/* Signature move: DM Serif Display italic for a single accent word */
+em {
+  font-style: italic;
+  font-family: var(--font-accent);
+  color: var(--accent-ink);
+}
+
+strong { font-weight: var(--weight-bold); }
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--link); text-decoration: none; transition: color var(--duration-base); }
+a:hover { color: var(--link-hover); }
+
+::selection { background: var(--selection-bg); color: var(--selection-fg); }
+
+/* Shared eyebrow label */
+.ds-label {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+
+/* Accessible focus for anything focusable that opts in */
+:where(button, a, input, select, textarea, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}

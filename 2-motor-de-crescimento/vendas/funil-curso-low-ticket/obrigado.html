@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="no-js">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compra confirmada — O Mapa das Convergências</title>
+  <meta name="description" content="Seu acesso ao curso O Mapa das Convergências está ativo." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#50704B" />
+  <link rel="icon" href="img/asterisco.svg" type="image/svg+xml" />
+
+  <!-- Fontes self-hosted (ds/ é gerado por `npm run sync:tokens`). -->
+  <link rel="preload" href="ds/fonts/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="ds/fonts/SpaceGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="ds/tokens/fonts.css" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── Página de obrigado: layout próprio, tokens compartilhados ────────── */
+    .ty-hero {
+      position: relative;
+      background: var(--verde);
+      color: var(--branco);
+      text-align: center;
+      padding: clamp(52px, 8vw, 88px) 0 clamp(44px, 7vw, 72px);
+      overflow: hidden;
+    }
+    .ty-hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 6px;
+      background: var(--gradient-assinatura);
+    }
+    .ty-hero__mark { width: 54px; margin: 0 auto 24px; opacity: .95; }
+    .ty-hero h1 { color: var(--branco); font-size: clamp(2.4rem, 6.5vw, 4rem); margin-bottom: 16px; }
+    .ty-hero h1 em { color: var(--ambar); }
+    .ty-hero p { color: var(--text-on-dark); max-width: 520px; margin: 0 auto 32px; font-size: clamp(1.02rem, 1.6vw, 1.15rem); }
+
+    .ty-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .8rem;
+      padding: 1.2rem 2.8rem;
+      background: var(--ambar);
+      color: var(--preto);
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      border-radius: var(--radius-pill);
+      box-shadow: 0 12px 28px rgba(13, 13, 13, .28);
+      transition: background .2s var(--ease-smooth), transform .2s var(--ease-smooth);
+    }
+    .ty-cta:hover { background: var(--branco); transform: translateY(-2px); }
+    .ty-hero__note { margin-top: 16px !important; font-size: .88rem !important; color: rgba(250, 250, 250, .64) !important; }
+    .ty-hero :focus-visible { outline-color: var(--branco); }
+
+    .steps { counter-reset: passo; display: grid; gap: 2px; margin-top: 34px; }
+    .steps li {
+      counter-increment: passo;
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      padding: clamp(20px, 2.8vw, 26px) clamp(20px, 3vw, 28px) clamp(20px, 2.8vw, 26px) 74px;
+      position: relative;
+      font-size: .98rem;
+      color: var(--text-muted);
+    }
+    .steps li::before {
+      content: counter(passo);
+      position: absolute;
+      left: clamp(20px, 3vw, 28px);
+      top: clamp(18px, 2.6vw, 24px);
+      width: 32px; height: 32px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      background: var(--verde);
+      color: var(--branco);
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+    }
+    .steps strong { color: var(--text-primary); }
+
+    .tips { display: grid; gap: 16px; margin-top: 34px; }
+    .tips li {
+      background: var(--surface-card);
+      border-left: 4px solid var(--ambar);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 18px 22px;
+      font-size: .96rem;
+      color: var(--text-muted);
+    }
+    .tips strong { display: block; color: var(--text-primary); margin-bottom: 4px; }
+
+    .ty-community { background: rgba(212, 134, 111, .18); }
+    .ty-community .cta-btn { background: var(--terracota-ink); color: var(--branco); }
+    .ty-community .cta-btn:hover { background: var(--preto); color: var(--branco); }
+
+    .ty-support {
+      text-align: center;
+      padding: clamp(40px, 5vw, 56px) 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .ty-support p { margin-bottom: 16px; }
+    .ty-support__links { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .ty-support__links a {
+      font-size: .78rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      padding: 8px 16px; border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle); color: var(--verde-ink);
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .ty-support__links a:hover { background: var(--verde); color: var(--branco); border-color: var(--verde); }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════ 1 · CONFIRMAÇÃO ═══════════ -->
+  <header class="ty-hero">
+    <div class="container container--narrow">
+      <img class="ty-hero__mark" src="img/asterisco.svg" alt="" width="54" height="54" aria-hidden="true" />
+      <span class="label label--on-dark" style="justify-content:center;">Compra confirmada</span>
+      <h1>Pronto.<br>O <em>mapa</em> é seu.</h1>
+      <p>
+        Seu acesso já está ativo. O login foi para o e-mail da compra — se não chegar em alguns minutos, dá uma olhada
+        no spam.
+      </p>
+      <a class="ty-cta" id="ctaPlataforma" href="https://sabinadeweik.curseduca.pro/m/courses" target="_blank"
+        rel="noopener">
+        Acessar a plataforma <span aria-hidden="true">→</span>
+      </a>
+      <p class="ty-hero__note">Você tem 6 meses de acesso.</p>
+    </div>
+  </header>
+
+  <!-- ═══════════ 2 · COMO ACESSAR ═══════════ -->
+  <section>
+    <div class="container container--narrow">
+      <span class="label">Como acessar</span>
+      <h2>Três passos e você está dentro.</h2>
+      <ol class="steps">
+        <li>Clique no botão acima e faça login com <strong>o mesmo e-mail que você usou na compra</strong>.</li>
+        <li>Abra <strong>O Mapa das Convergências</strong> na sua lista de cursos.</li>
+        <li>Comece por <strong>“Comece por Aqui”</strong> — são poucos minutos e te poupam confusão depois.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══════════ 3 · COMO APROVEITAR MELHOR ═══════════ -->
+  <section class="tool">
+    <div class="container container--narrow">
+      <span class="label">Como aproveitar melhor</span>
+      <h2>A diferença entre comprar<br>e realmente usar.</h2>
+      <ul class="tips">
+        <li>
+          <strong>Baixe o Mapa antes de assistir.</strong>
+          Deixa ele aberto do lado. As aulas fazem muito mais sentido quando você já viu o desenho inteiro.
+        </li>
+        <li>
+          <strong>Uma aula por dia é suficiente.</strong>
+          Não tente engolir os dois módulos num fim de semana — esse conteúdo funciona melhor decantando.
+        </li>
+        <li>
+          <strong>Não termine sem responder a pergunta final do Mapa.</strong>
+          É a parte que transforma isso em decisão, e é a única que ninguém pode fazer por você.
+        </li>
+        <li>
+          <strong>Você pode voltar quantas vezes quiser.</strong>
+          São 6 meses de acesso — e reler depois de umas semanas costuma render mais que a primeira passada.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ═══════════ 4 · A COMUNIDADE ═══════════ -->
+  <section class="ty-community">
+    <div class="container container--narrow">
+      <span class="label">Já incluído</span>
+      <h2>Vem conversar — em dois lugares.</h2>
+      <ul class="tips">
+        <li>
+          <strong>A comunidade privada, na plataforma.</strong>
+          Fica na aba <em>Comunidade</em>, com o mesmo login. É onde você troca com quem também está aplicando isso no
+          próprio contexto.
+        </li>
+        <li>
+          <strong>Futuro Com Sabina, no WhatsApp.</strong>
+          Sinais em tempo real e os bastidores dos eventos. Quando entrar, se apresenta em uma linha: o que você faz e
+          qual futuro te preocupa hoje. Eu leio todas.
+        </li>
+      </ul>
+      <div class="center">
+        <a class="cta-btn" href="https://chat.whatsapp.com/LY7sn74TpERBJlizq6IPkT?mode=gi_t" target="_blank"
+          rel="noopener">Entrar no grupo <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 5 · SUPORTE ═══════════ -->
+  <div class="ty-support">
+    <div class="container container--narrow">
+      <p>Deu algum problema com o acesso? Escreve para <strong>sabina@sabinadeweik.com.br</strong> que a gente resolve.</p>
+      <div class="ty-support__links">
+        <a href="https://www.instagram.com/sabina.deweik/" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="https://www.linkedin.com/in/sabina-deweik-4662777/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="https://melevaparaofuturo.substack.com/" target="_blank" rel="noopener">Substack ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.documentElement.classList.remove('no-js');
+
+    /* Conversão acontece aqui, não no clique do CTA da página de vendas.
+       Quando houver GA4/Pixel, estes são os eventos que fecham o funil. */
+    (function () {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'purchase', { value: 197, currency: 'BRL', items: [{ item_name: 'O Mapa das Convergências' }] });
+      }
+      const cta = document.getElementById('ctaPlataforma');
+      if (cta) {
+        cta.addEventListener('click', function () {
+          if (typeof window.gtag === 'function') window.gtag('event', 'acessou_plataforma');
+        });
+      }
+    })();
+  </script>
+</body>
+
+</html>

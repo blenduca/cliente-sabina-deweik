@@ -1,0 +1,48 @@
+<!-- @dsCard group="Components" viewport="700x520" name="Content — Card, StatBlock, Testimonial, PriceCard" subtitle="The recurring color-block content blocks" -->
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../../styles.css">
+<script src="../../_ds_bundle.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  body{margin:0;background:var(--surface-bg);padding:20px;box-sizing:border-box;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:16px;}
+  .stats{display:flex;gap:2px;margin-bottom:16px;}
+  .stats > div{flex:1;background:#1a1a1a;padding:24px;}
+  .prices{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { Card, StatBlock, Testimonial, PriceCard } = window.SabinaDeweikDesignSystem_a9d1c1;
+function Demo() {
+  return (
+    <div>
+      <div className="grid3">
+        <Card title="O feed não para." description="Posts soltos no LinkedIn. Resumos genéricos." accentBg="#0D0D0D" accentColor="#FAFAFA" />
+        <Card title="O ruído virou rotina." description="IA. Convergência. Biotech." accentBg="var(--pop-laranja)" accentColor="var(--pop-preto)" />
+        <Card title="A sensação é clara." description="Você está reagindo, não antecipando." accentBg="var(--pop-verde)" accentColor="var(--pop-preto)" />
+      </div>
+      <div className="stats">
+        <StatBlock value="7" label="DIAS DE COBERTURA" valueColor="var(--pop-verde)" />
+        <StatBlock value="100%" label="AO VIVO, SEM DELAY" valueColor="var(--pop-amarelo)" />
+        <StatBlock value="0" label="DE RUÍDO" valueColor="var(--pop-rosa)" />
+      </div>
+      <div style={{marginBottom:16}}>
+        <Testimonial quote="Tive a sensação de estar lá. Mas com filtro." cite="— Participante da comunidade, SXSW 2025" />
+      </div>
+      <div className="prices">
+        <PriceCard variant="free" tag="ACOMPANHAMENTO SXSW" title="Me Leva pro Futuro™" price="Gratuito." description="O acompanhamento não tem custo." ctaLabel="Quero entrar agora" />
+        <PriceCard variant="premium" tag="PARA EMPRESAS" title="Leve o SXSW pro seu time" price="Palestra" description="Transforme o SXSW em estratégia." ctaLabel="Solicitar proposta" />
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

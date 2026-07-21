@@ -1,0 +1,23 @@
+# Conteúdo pesado mora fora do repo (Drive/CMS) — só índices/links aqui
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.zip
+*.pdf
+*.psd
+*.ai
+*.sketch
+# Ambiente
+node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+# Governança interna, schema do método e automação backend — ficam locais, fora
+# do repo público de validação do cliente (não divulgar a operação/método).
+.claude/
+CLAUDE.md
+ia/
+# Base de leads (dado pessoal) — fica fora do repo.
+expert-list-*.csv

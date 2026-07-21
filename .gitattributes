@@ -1,0 +1,25 @@
+# Fim de linha determinado pelo repo, não pela máquina de quem clona.
+# Sem isto, o resultado depende do core.autocrlf local de cada dev — hoje ele está
+# `true` em todas as máquinas do workspace, mas isso é config local e não viaja no clone.
+* text=auto eol=lf
+
+# Scripts são executados por bash: CRLF quebra o shebang.
+*.sh text eol=lf
+
+# Binários: nunca converter (converter corrompe).
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.webp binary
+*.avif binary
+*.pdf  binary
+*.zip  binary
+*.mp4  binary
+*.mov  binary
+*.woff  binary
+*.woff2 binary
+*.ttf  binary
+*.otf  binary
+*.eot  binary

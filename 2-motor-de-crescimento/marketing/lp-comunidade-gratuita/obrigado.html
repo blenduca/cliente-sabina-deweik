@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="no-js">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Você já está dentro — Futuro Com Sabina</title>
+  <meta name="description" content="Falta um passo: entrar no grupo do WhatsApp da comunidade Futuro Com Sabina.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#50704B">
+  <link rel="icon" href="assets/asterisco.svg" type="image/svg+xml">
+
+  <!-- Fontes self-hosted (ds/ é gerado por `npm run sync:tokens`). -->
+  <link rel="preload" href="ds/fonts/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="ds/fonts/SpaceGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="ds/tokens/fonts.css">
+
+  <style>
+    :root {
+      --marca-ambar: #E9974E;
+      --marca-ambar-ink: #B26A24;
+      --marca-ambar-strong: #DE8636;
+      --marca-verde: #50704B;
+      --marca-verde-ink: #3A5236;
+      --marca-terracota-ink: #B0573D;
+      --marca-preto: #0D0D0D;
+      --marca-branco: #FAFAFA;
+      --marca-creme: #F7F2EC;
+      --whatsapp: #1FA855;
+      --whatsapp-dk: #16904a;
+
+      --text-muted: rgba(13, 13, 13, 0.72);
+      --text-subtle: rgba(13, 13, 13, 0.5);
+      --text-on-dark: rgba(250, 250, 250, 0.82);
+      --border-default: rgba(13, 13, 13, 0.14);
+
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-body: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-pill: 100px;
+      --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--marca-creme);
+      color: var(--marca-preto);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      line-height: 1.02;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    p {
+      color: var(--text-muted);
+      text-wrap: pretty;
+    }
+
+    em {
+      font-style: italic;
+      font-family: var(--font-serif);
+      color: var(--marca-ambar);
+      text-transform: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    ::selection {
+      background: var(--marca-ambar);
+      color: var(--marca-preto);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--marca-ambar);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .hero :focus-visible {
+      outline-color: var(--marca-branco);
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 5vw, 2rem);
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--marca-ambar-ink);
+      margin-bottom: 18px;
+    }
+
+    .label::before {
+      content: '';
+      width: 32px;
+      height: 2px;
+      background: currentColor;
+    }
+
+    /* ══════════ PASSO 1 — acima da dobra ══════════ */
+    .hero {
+      background: var(--marca-verde);
+      color: var(--marca-branco);
+      text-align: center;
+      padding: clamp(48px, 8vw, 84px) 0 clamp(44px, 7vw, 72px);
+    }
+
+    .hero__asterisk {
+      width: 52px;
+      margin: 0 auto 26px;
+      opacity: 0.92;
+    }
+
+    .hero h1 {
+      color: var(--marca-branco);
+      font-size: clamp(2.6rem, 7vw, 4.4rem);
+      margin-bottom: 18px;
+    }
+
+    .hero__sub {
+      color: var(--text-on-dark);
+      font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+      max-width: 520px;
+      margin: 0 auto 34px;
+    }
+
+    .wa-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 460px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      background: var(--whatsapp);
+      color: #fff;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 3vw, 1.6rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 28px rgba(13, 13, 13, 0.22);
+      transition: background .2s var(--ease-smooth), transform .2s var(--ease-smooth);
+    }
+
+    .wa-btn:hover {
+      background: var(--whatsapp-dk);
+      transform: translateY(-2px);
+    }
+
+    .wa-btn svg {
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      fill: currentColor;
+    }
+
+    .hero__note {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: rgba(250, 250, 250, 0.66);
+    }
+
+    /* ══════════ MICROPASSO ══════════ */
+    .micro {
+      padding: clamp(40px, 6vw, 60px) 0 clamp(28px, 4vw, 40px);
+    }
+
+    .micro__card {
+      background: #FFF;
+      border: 1.5px solid var(--border-default);
+      border-left: 4px solid var(--marca-ambar);
+      border-radius: var(--radius-lg);
+      padding: clamp(24px, 3.4vw, 34px);
+    }
+
+    .micro__card h2 {
+      font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+      margin-bottom: 12px;
+    }
+
+    .micro__card p {
+      font-size: 1rem;
+    }
+
+    .micro__card strong {
+      color: var(--marca-preto);
+    }
+
+    .micro__signature {
+      display: block;
+      margin-top: 14px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--marca-ambar-ink);
+    }
+
+    /* ══════════ SEGUNDO CANAL ══════════ */
+    .email-block {
+      padding: clamp(28px, 4vw, 40px) 0;
+    }
+
+    .email-block__inner {
+      border-top: 1px solid var(--border-default);
+      border-bottom: 1px solid var(--border-default);
+      padding: clamp(26px, 3.6vw, 36px) 0;
+    }
+
+    .email-block h2 {
+      font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+      margin-bottom: 12px;
+    }
+
+    .email-block p {
+      font-size: 1rem;
+      max-width: 580px;
+    }
+
+    /* ══════════ VALOR IMEDIATO ══════════ */
+    .reading {
+      padding: clamp(36px, 5vw, 56px) 0 clamp(52px, 7vw, 76px);
+    }
+
+    .reading h2 {
+      font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+      margin-bottom: 12px;
+    }
+
+    .reading__intro {
+      font-size: 1rem;
+      margin-bottom: 30px;
+      max-width: 560px;
+    }
+
+    .reading__list {
+      display: grid;
+      gap: 2px;
+    }
+
+    .read-item {
+      display: grid;
+      grid-template-columns: 54px 1fr auto;
+      gap: 16px;
+      align-items: center;
+      background: #FFF;
+      border: 1px solid var(--border-default);
+      padding: clamp(18px, 2.4vw, 24px) clamp(18px, 2.6vw, 26px);
+      transition: background .2s var(--ease-smooth), border-color .2s var(--ease-smooth);
+    }
+
+    .read-item:hover {
+      border-color: var(--marca-verde);
+    }
+
+    .read-item__num {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      line-height: 1;
+      color: var(--marca-ambar);
+    }
+
+    .read-item h3 {
+      font-size: clamp(1.05rem, 1.8vw, 1.28rem);
+      margin-bottom: 5px;
+    }
+
+    .read-item p {
+      font-size: 0.9rem;
+    }
+
+    .read-item__arrow {
+      font-size: 1.2rem;
+      color: var(--marca-verde);
+    }
+
+    /* ══════════ AGENDA TEASER ══════════ */
+    .next-event {
+      background: var(--marca-preto);
+      color: var(--marca-branco);
+      border-radius: var(--radius-xl);
+      padding: clamp(26px, 3.6vw, 38px);
+      margin-top: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .next-event h3 {
+      color: var(--marca-branco);
+      font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+      margin-bottom: 6px;
+    }
+
+    .next-event p {
+      color: rgba(250, 250, 250, 0.7);
+      font-size: 0.92rem;
+    }
+
+    .next-event__date {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      line-height: 1;
+      color: var(--marca-ambar);
+    }
+
+    /* ══════════ FOOTER ══════════ */
+    footer {
+      border-top: 1px solid var(--border-default);
+      padding: 34px 0 48px;
+      text-align: center;
+    }
+
+    .footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .footer__links a {
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 7px 15px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-default);
+      color: var(--marca-verde-ink);
+      transition: background .2s, color .2s;
+    }
+
+    .footer__links a:hover {
+      background: var(--marca-verde);
+      color: var(--marca-branco);
+      border-color: var(--marca-verde);
+    }
+
+    .footer__note {
+      font-size: 0.82rem;
+      color: var(--text-subtle);
+    }
+
+    @media (max-width: 560px) {
+      .read-item {
+        grid-template-columns: 40px 1fr;
+      }
+
+      .read-item__arrow {
+        display: none;
+      }
+
+      .next-event {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════ PASSO ÚNICO ═══════════ -->
+  <header class="hero">
+    <div class="container">
+      <img class="hero__asterisk" src="assets/asterisco.svg" alt="" width="52" height="52" aria-hidden="true">
+      <h1>Você já está dentro.</h1>
+      <p class="hero__sub">
+        Falta um passo, e é o mais importante: o WhatsApp é onde a conversa acontece de verdade.
+      </p>
+
+      <a class="wa-btn" id="waBtn" href="https://chat.whatsapp.com/LY7sn74TpERBJlizq6IPkT?mode=gi_t" target="_blank"
+        rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+        Entrar no grupo do WhatsApp
+      </a>
+      <p class="hero__note">Leva cinco segundos. É lá que os sinais chegam primeiro.</p>
+    </div>
+  </header>
+
+  <!-- ═══════════ MICROPASSO DE ATIVAÇÃO ═══════════ -->
+  <section class="micro">
+    <div class="container">
+      <div class="micro__card">
+        <h2>Quando entrar, se apresenta</h2>
+        <p>
+          Em uma linha só: <strong>o que você faz e qual futuro te preocupa hoje.</strong> Não precisa ser elaborado —
+          é assim que a conversa começa e é assim que eu sei quem está do outro lado.
+        </p>
+        <span class="micro__signature">Eu leio todas.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ SEGUNDO CANAL ═══════════ -->
+  <section class="email-block">
+    <div class="container">
+      <div class="email-block__inner">
+        <h2>E o e-mail?</h2>
+        <p>
+          A newsletter <strong>“Me Leva Para O Futuro”</strong> chega a cada quinze dias. Dá uma olhada na sua caixa de
+          entrada — se ela cair em promoções, arrasta para a principal. É o que garante que a leitura longa te encontre.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ VALOR IMEDIATO ═══════════ -->
+  <section class="reading">
+    <div class="container">
+      <span class="label">Comece por aqui</span>
+      <h2>Três leituras para<br>já ir entrando no clima.</h2>
+      <p class="reading__intro">
+        Enquanto a próxima edição não sai, três coisas que dizem bem de onde a gente parte.
+      </p>
+
+      <div class="reading__list">
+        <a class="read-item" href="https://melevaparaofuturo.substack.com/p/edicao-00-a-semente-de-futuros-positivos"
+          target="_blank" rel="noopener">
+          <span class="read-item__num">01</span>
+          <div>
+            <h3>A semente de futuros positivos</h3>
+            <p>A edição de lançamento — por que futuros positivos são posicionamento crítico, e não otimismo ingênuo.</p>
+          </div>
+          <span class="read-item__arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="read-item" href="https://melevaparaofuturo.substack.com/archive" target="_blank" rel="noopener">
+          <span class="read-item__num">02</span>
+          <div>
+            <h3>O arquivo completo</h3>
+            <p>Todas as edições publicadas. Comece por qualquer título que te chamar — não precisa ser em ordem.</p>
+          </div>
+          <span class="read-item__arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="read-item" href="https://vejasp.abril.com.br/coluna/futuros-de-dentro-pra-fora-sabina-deweik/"
+          target="_blank" rel="noopener">
+          <span class="read-item__num">03</span>
+          <div>
+            <h3>Futuros: de Dentro pra Fora</h3>
+            <p>A coluna na Veja SP, onde os sinais viram leitura da cidade.</p>
+          </div>
+          <span class="read-item__arrow" aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <div class="next-event">
+        <div>
+          <h3>Rio Innovation Week 2026</h3>
+          <p>O próximo evento que a comunidade acompanha por dentro. Você chegou a tempo.</p>
+        </div>
+        <span class="next-event__date">04 Ago</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer>
+    <div class="container">
+      <nav class="footer__links" aria-label="Redes">
+        <a href="https://instagram.com/sabina.deweik/" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="https://www.linkedin.com/in/sabina-deweik-4662777/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="index.html">Voltar para a página</a>
+      </nav>
+      <p class="footer__note">Sabina Deweik · Futuro Com Sabina — você pode sair da comunidade quando quiser.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.documentElement.classList.remove('no-js');
+
+    /* Gancho de instrumentação: a métrica que importa é cadastro → WhatsApp.
+       Quando houver GA4/Meta Pixel, disparar aqui os dois eventos. */
+    (function () {
+      const wa = document.getElementById('waBtn');
+      if (!wa) return;
+      wa.addEventListener('click', function () {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'entrou_whatsapp', { event_category: 'comunidade' });
+        }
+        if (typeof window.fbq === 'function') {
+          window.fbq('trackCustom', 'EntrouWhatsApp');
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>

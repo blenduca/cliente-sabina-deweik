@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modernidade gasosa e o mapa das convergências — Módulo 01</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#F7F2EC">
+
+  <link rel="icon" type="image/svg+xml" href="imagens/capas/capa-modulo-01.svg">
+
+  <link rel="preload" href="ds/fonts/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="ds/fonts/SpaceGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="ds/tokens/fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+
+    <aside class="lateral">
+      <a class="marca" href="index.html">Sabina<br><em>Deweik</em></a>
+
+      <nav aria-label="Seções da plataforma">
+        <ul class="menu">
+          <li>
+            <a href="index.html">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3z" /><path d="M9 4v13M15 7v13" />
+              </svg>
+              Meu percurso
+            </a>
+          </li>
+          <li>
+            <a href="aula.html" aria-current="page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M4 5h7a3 3 0 0 1 3 3v11a2 2 0 0 0-2-2H4z" /><path d="M20 5h-3a3 3 0 0 0-3 3v11a2 2 0 0 1 2-2h4z" />
+              </svg>
+              Continuar assistindo
+            </a>
+          </li>
+          <li>
+            <a href="index.html#comunidade">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <circle cx="9" cy="8" r="3" /><path d="M3 20a6 6 0 0 1 12 0" /><path d="M16 6a3 3 0 0 1 0 6M18 20a6 6 0 0 0-3-5" />
+              </svg>
+              Comunidade
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <p class="aluno">
+        <span class="aluno__inicial" aria-hidden="true">R</span>
+        Ricardo Werlang<br>Acesso até 30/05/27
+      </p>
+    </aside>
+
+    <main class="conteudo">
+      <div class="faixa aula">
+
+        <!-- ═══════════ Coluna do vídeo ═══════════ -->
+        <div>
+          <div class="aula__cabecalho">
+            <p class="rotulo">Módulo 01 · aula 3 de 12</p>
+            <h1 class="aula__titulo">Modernidade gasosa e o mapa das convergências</h1>
+            <p class="aula__meta">2026: O Ano das Convergências · 18 min</p>
+          </div>
+
+          <!-- O palco. Único bloco escuro da interface: como tudo ao redor é creme,
+               o contraste sozinho já leva o olho para cá. Sem moldura decorativa. -->
+          <div class="palco">
+            <button class="palco__play" type="button" aria-label="Reproduzir a aula">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </button>
+            <p class="palco__nota">Protótipo de design — o player real é o da plataforma</p>
+          </div>
+
+          <div class="acoes">
+            <button class="botao" type="button">Marcar como concluída</button>
+            <button class="botao botao--fantasma" type="button">Favoritar</button>
+            <button class="botao botao--fantasma" type="button">Anotações</button>
+          </div>
+        </div>
+
+        <!-- ═══════════ Coluna da lista ═══════════ -->
+        <div>
+          <div class="progresso">
+            <p class="rotulo">Seu avanço no módulo</p>
+            <div class="progresso__trilho" role="img" aria-label="2 de 12 aulas concluídas, 17 por cento">
+              <div class="progresso__feito" style="width: 17%"></div>
+            </div>
+            <p class="progresso__texto">2 de 12 aulas concluídas</p>
+          </div>
+
+          <h2 class="sr-only">Aulas do Módulo 01</h2>
+          <!-- Títulos reais, extraídos da Curseduca (ver conteudo-plataforma.md).
+               As durações são de exemplo: a plataforma não expõe esse dado e eu
+               não vou inventar número que pareça medido. -->
+          <ol class="aulas">
+            <li class="is-feita">
+              <a href="aula.html">
+                <span class="aulas__num" aria-hidden="true">01</span>
+                <span>
+                  <span class="aulas__titulo">Futuros no plural: emoções, futurofobia e policrises</span><br>
+                  <span class="aulas__dur">Concluída</span>
+                </span>
+              </a>
+            </li>
+            <li class="is-feita">
+              <a href="aula.html">
+                <span class="aulas__num" aria-hidden="true">02</span>
+                <span>
+                  <span class="aulas__titulo">Da perda de confiança à insularidade: riscos globais de 2026</span><br>
+                  <span class="aulas__dur">Concluída</span>
+                </span>
+              </a>
+            </li>
+            <li class="is-atual">
+              <a href="aula.html" aria-current="true">
+                <span class="aulas__num" aria-hidden="true">03</span>
+                <span>
+                  <span class="aulas__titulo">Modernidade gasosa e o mapa das convergências</span><br>
+                  <span class="aulas__dur">Assistindo agora</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="aula.html">
+                <span class="aulas__num" aria-hidden="true">04</span>
+                <span class="aulas__titulo">Superciclo tecnológico: IA, agentes autônomos e novos territórios</span>
+              </a>
+            </li>
+            <li>
+              <a href="aula.html">
+                <span class="aulas__num" aria-hidden="true">05</span>
+                <span class="aulas__titulo">Depois de dois anos de AI Workslop, internet morta e relações sintéticas</span>
+              </a>
+            </li>
+            <li>
+              <a href="aula.html">
+                <span class="aulas__num" aria-hidden="true">06</span>
+                <span class="aulas__titulo">Soberania cognitiva, juventude e envelhecimento populacional</span>
+              </a>
+            </li>
+            <li>
+              <a href="aula.html">
+                <span class="aulas__num" aria-hidden="true">07</span>
+                <span class="aulas__titulo">Revoluções silenciosas: trabalho, burnout, automação e requalificação</span>
+              </a>
+            </li>
+            <li>
+              <a href="aula.html">
+                <span class="aulas__num" aria-hidden="true">08</span>
+                <span class="aulas__titulo">Habilidades em fluxo: profissional TX e os 4 Is humanos</span>
+              </a>
+            </li>
+            <li>
+              <a href="aula.html">
+                <span class="aulas__num" aria-hidden="true">09</span>
+                <span class="aulas__titulo">Esperança ativa: coragem, humanidade e os 6 Cs do futuro</span>
+              </a>
+            </li>
+            <li>
+              <a href="aula.html">
+                <span class="aulas__num" aria-hidden="true">10</span>
+                <span class="aulas__titulo">Aplicações práticas: fricção criativa, comunidades e agentes transformadores</span>
+              </a>
+            </li>
+            <li>
+              <a href="aula.html">
+                <span class="aulas__num" aria-hidden="true">11</span>
+                <span class="aulas__titulo">Liderança, equidade e uso intencional da tecnologia</span>
+              </a>
+            </li>
+            <li>
+              <a href="aula.html">
+                <span class="aulas__num" aria-hidden="true">12</span>
+                <span class="aulas__titulo">Tendências emergentes, SXSW e próximos passos da jornada</span>
+              </a>
+            </li>
+          </ol>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>

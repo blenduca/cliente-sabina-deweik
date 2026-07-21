@@ -1,0 +1,36 @@
+/* ==========================================================================
+   SPACING + SIZING TOKENS (POP identity)
+   ========================================================================== */
+
+:root {
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* Layout rhythm */
+  --container-max: 1080px;      /* campaign container width */
+  --container-max-wide: 1280px;
+  --container-max-narrow: 720px;
+  --container-pad: clamp(1.25rem, 5vw, 2.5rem);
+  --section-pad-y: 100px;       /* fixed vertical section padding */
+  --block-gap: 2px;            /* color-block grid gap */
+
+  /* ---- Interactive control sizing (forms, buttons) ---- */
+  --control-height-sm: 34px;
+  --control-height-md: 44px;    /* min 44px touch target */
+  --control-height-lg: 54px;
+  --control-pad-x: 16px;
+  --control-gap: 10px;
+
+  /* ---- Focus ring (accessible outline for every interactive control) ---- */
+  --focus-ring: 0 0 0 3px var(--accent-glow);
+  --focus-ring-offset: 0 0 0 2px var(--surface-bg), 0 0 0 5px var(--accent-glow);
+}

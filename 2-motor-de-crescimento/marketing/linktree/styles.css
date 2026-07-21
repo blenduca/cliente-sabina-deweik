@@ -1,0 +1,493 @@
+/* ==========================================================================
+   Sabina Deweik — Linktree / página de banners
+
+   Os valores da marca vêm do design system, não daqui. `ds/` é gerado por
+   `npm run sync:tokens` a partir de recursos/design-system/sistema/tokens/ —
+   a cópia existe porque esta pasta é a raiz do deploy e um import para fora
+   dela morreria em produção. Não editar ds/ à mão.
+
+   Os nomes locais abaixo são apelidos dos tokens canônicos, mantidos só para
+   não reescrever 400 linhas de seletor. Código novo usa `--marca-*` direto.
+   ========================================================================== */
+
+@import url("ds/tokens/colors.css");
+@import url("ds/tokens/typography.css");
+@import url("ds/tokens/effects.css");
+/* fonts.css entra pelo <link> do HTML, junto do preload dos .woff2. */
+
+:root {
+  --ink:        var(--marca-preto);
+  --ink-soft:   var(--text-muted);       /* texto secundário sobre claro */
+  --green:      var(--marca-verde);      /* marca / links / superfícies escuras */
+  --green-dk:   var(--marca-verde-ink);  /* verde hover */
+  --ambar:      var(--marca-ambar);      /* accent / destaque */
+  --ambar-dk:   var(--accent-strong);    /* âmbar hover */
+  --terra:      var(--marca-terracota);  /* apoio quente (comunidade) */
+  --terra-ink:  var(--marca-terracota-ink);
+  --blue:       var(--marca-azul);       /* apoio frio (mídia) */
+  --blue-ink:   var(--marca-azul-ink);
+  --sand:       var(--marca-creme);      /* fundo */
+  --line:       var(--border-default);   /* borda dos cards claros */
+  --ambar-tint: var(--accent-muted);     /* fundo das tags claras */
+  --display:    var(--font-display-pop);
+  --serif:      var(--font-serif);
+
+  /* Percorre a paleta inteira; usado como faixa de assinatura no banner
+     principal (como fundo de texto ele não teria contraste). O ângulo é
+     desta página, então o gradiente do DS não serve direto. */
+  --gradient-assinatura: linear-gradient(100deg, #ECAA4C 0%, #D6886D 38%, #6C8972 68%, #99B5B6 100%);
+
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+}
+
+/* ── Foco visível ──────────────────────────────────────────────────────────
+   Esta página é inteiramente links: sem anel de foco ela é inavegável por
+   teclado. Mesmo tratamento da LP da comunidade. */
+:focus-visible {
+  outline: 3px solid var(--marca-ambar);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Sobre os banners escuros/foto o âmbar some — troca por creme. */
+.banner :focus-visible,
+.hero :focus-visible {
+  outline-color: var(--marca-creme);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--sand);
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--green); text-decoration: none; }
+a:hover { color: var(--green-dk); }
+
+::selection { background: var(--ambar); color: var(--ink); }
+
+img { max-width: 100%; }
+
+/* ---- Shell -------------------------------------------------------------- */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px 56px;
+}
+
+.wrap { width: 100%; max-width: 720px; }
+
+/* ---- Header ------------------------------------------------------------- */
+
+.site-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 52px 0 36px;
+  gap: 14px;
+}
+
+.site-header__mark { width: 44px; height: 44px; object-fit: contain; }
+
+.site-header__name {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 54px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.site-header__role {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.site-header__lede {
+  margin: 2px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 440px;
+}
+
+/* ---- Cards stack -------------------------------------------------------- */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Shared bits */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.card__title {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.card__text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* Buttons ----------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+
+.btn svg { width: 18px; height: 18px; flex: 0 0 auto; fill: currentColor; }
+
+.btn--ambar   { background: var(--ambar);      color: var(--ink);  padding: 13px 22px; }
+.btn--ambar:hover   { background: #FFFFFF;     color: var(--ink); }
+
+
+/* CTA principal do banner de palestras: é a ação que gera receita, então
+   ganha corpo maior e sombra — não pode empatar visualmente com o Media Kit.
+   O verde saturado do WhatsApp (#1FA855) saiu: está na lista de proibidos do
+   design system e brigava com o verde da marca no mesmo cartão. O ícone já
+   identifica o canal sozinho. */
+.btn--whats {
+  background: var(--marca-verde);
+  color: var(--marca-branco);
+  font-size: 16px;
+  padding: 15px 26px;
+  box-shadow: 0 8px 20px rgba(13,13,13,0.28);
+}
+.btn--whats:hover { background: var(--marca-verde-ink); color: var(--marca-branco); }
+.btn--whats svg { width: 20px; height: 20px; }
+
+/* Terceira ação, discreta: link sublinhado, sem competir com os dois botões */
+.hero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(250,250,250,0.82);
+  border-bottom: 1px solid rgba(250,250,250,0.35);
+  padding-bottom: 2px;
+}
+.hero__link:hover { color: var(--ambar); border-color: var(--ambar); }
+
+
+/* ---- 1 · Palestras & Media Kit (hero — o banner PRINCIPAL) ---------------
+   É o maior da pilha de propósito: mais respiro, título maior e a faixa do
+   gradiente-assinatura no topo. Os demais banners são menores para que a
+   hierarquia visual sozinha já diga qual é a oferta principal.            */
+
+.hero {
+  position: relative;
+  /* O gradiente-assinatura inteiro (âmbar → terracota → verde → azul), em
+     versão escurecida: percorre a mesma ordem de matizes, mas com
+     luminância baixa o bastante para texto branco passar em AA.
+     Os hexes claros do original (#ECAA4C…) não serviriam de superfície. */
+  background: linear-gradient(118deg,
+      #8A5A25 0%,
+      #8A5741 24%,
+      #636B45 52%,
+      #466A55 76%,
+      #3D5D69 100%);
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+/* Faixa do gradiente-assinatura (a paleta inteira) no topo do principal. */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: var(--gradient-assinatura);
+  z-index: 2;
+}
+
+.hero__body {
+  flex: 1 1 340px;
+  padding: 46px 36px 42px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: center;
+}
+
+.hero__eyebrow { color: var(--ambar); }
+.hero .card__title { font-family: var(--display); font-weight: 400; font-size: clamp(40px, 6.6vw, 50px); line-height: 0.96; letter-spacing: 0.01em; text-transform: uppercase; color: #FFFFFF; }
+.hero .card__text  { color: rgba(250,250,250,0.85); font-size: 16px; }
+
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 10px; }
+
+.hero__media { flex: 1 1 260px; min-height: 330px; position: relative; }
+.hero__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: grayscale(1) contrast(1.03);
+}
+
+/* ---- 2 e 3 · Banners (foto P&B + véu verde + CTA âmbar) -----------------
+   Base compartilhada pela comunidade (gratuita) e pelo curso (pago).
+   Modificadores: .banner--comunidade · .banner--curso                      */
+
+.banner {
+  position: relative;
+  display: block;
+  border-radius: 24px;
+  overflow: hidden;
+  min-height: 300px;   /* menor que o hero — hierarquia deliberada */
+  isolation: isolate;
+  color: #fff;
+}
+/* `picture > img` também: o banner de mídia envelopa a imagem num <picture>
+   para servir o .avif, e o combinador `>` sozinho deixaria de alcançá-la. */
+.banner > img,
+.banner > picture > img {
+  position: absolute; inset: 0; z-index: -2;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 20%;
+  filter: grayscale(1) contrast(1.06);
+  transition: transform .45s var(--ease-out, ease);
+}
+.banner::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg,
+    rgba(12,20,11,0.94) 0%, rgba(58,82,54,0.86) 42%,
+    rgba(80,112,75,0.55) 74%, rgba(80,112,75,0.18) 100%);
+}
+.banner:hover > img,
+.banner:hover > picture > img { transform: scale(1.045); }
+
+/* O banner é um <a>, então a regra global `a:hover { color: var(--green-dk) }`
+   pintava o título de verde ao passar o mouse. Aqui o texto fica branco. */
+.banner:hover { color: #FFFFFF; }
+
+.banner__body {
+  position: relative;
+  min-height: 300px;
+  max-width: 580px;
+  padding: clamp(26px, 4.4vw, 36px);
+  display: flex; flex-direction: column; gap: 11px;
+  justify-content: flex-end;
+}
+.banner__eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ambar);
+}
+.banner__title {
+  margin: 0;
+  font-family: var(--display); font-weight: 400;
+  font-size: clamp(32px, 5.4vw, 42px); line-height: 0.94;
+  letter-spacing: 0.01em; text-transform: uppercase;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.35);
+}
+.banner__text {
+  margin: 0; max-width: 440px;
+  font-size: 15px; line-height: 1.55; color: rgba(250,250,250,0.9);
+}
+.banner__text b { color: var(--ambar); font-weight: 700; }
+.banner__cta {
+  align-self: flex-start; margin-top: 8px;
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--ambar); color: var(--ink);
+  font-family: var(--display); font-weight: 400; font-size: 21px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  padding: 12px 26px; border-radius: 999px;
+  transition: transform .18s ease, background-color .18s ease;
+}
+/* Hover do CTA: precisa ser uma troca VISÍVEL, não um tom de âmbar vizinho.
+   Sobre verde/azul, o pill âmbar vira branco — o contraste salta. */
+.banner:hover .banner__cta {
+  transform: translateY(-2px);
+  background: #FFFFFF;
+  color: var(--ink);
+  box-shadow: 0 8px 20px rgba(13,13,13,0.3);
+}
+.banner__note { font-size: 12px; color: rgba(250,250,250,0.72); letter-spacing: 0.02em; }
+
+/* Selo "Gratuito" — só a comunidade tem, para distinguir do curso pago. */
+.banner__tag {
+  align-self: flex-start;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink); background: var(--ambar);
+  padding: 5px 13px; border-radius: 999px;
+}
+
+/* Comunidade — TERRACOTA/ÂMBAR: o lado quente da paleta, para ler como
+   proximidade. A plateia fica na parte de baixo do quadro, então o
+   enquadramento desce para mantê-la visível. */
+.banner--comunidade > img { object-position: center 66%; }
+.banner--comunidade::before {
+  background: linear-gradient(90deg,
+    rgba(44,20,8,0.95) 0%, rgba(140,66,34,0.87) 42%,
+    rgba(196,102,66,0.52) 74%, rgba(233,151,78,0.20) 100%);
+}
+
+/* Sobre fundo quente o âmbar some. Aqui os acentos viram creme — que é
+   neutro da marca e é o que pulsa contra terracota. */
+.banner--comunidade .banner__tag    { background: var(--sand); color: var(--ink); }
+.banner--comunidade .banner__eyebrow{ color: rgba(250,250,250,0.92); }
+.banner--comunidade .banner__text b { color: var(--sand); }
+.banner--comunidade .banner__cta    { background: var(--sand); color: var(--ink); }
+
+/* Aqui o CTA já é claro, então clarear no hover não mudaria nada. Ele
+   inverte para o preto da marca — sobre terracota é o contraste máximo. */
+.banner--comunidade:hover .banner__cta {
+  background: var(--ink);
+  color: var(--sand);
+}
+
+/* Mídia — AZUL: o lado frio, de leitura e análise.
+   A arte da VejaSP é pequena (258×336): em full-bleed ela seria esticada
+   ~2,8×. Por isso vira retrato à direita, sobre fundo azul chapado, com a
+   borda esquerda dissolvida no fundo. */
+.banner--midia { background: #2B4750; }
+.banner--midia > img,
+.banner--midia > picture > img {
+  left: auto; right: 0;
+  width: 48%;
+  object-position: center 16%;
+  filter: grayscale(1) contrast(1.06) brightness(1.02);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 38%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 38%);
+}
+.banner--midia::before {
+  background: linear-gradient(90deg,
+    rgba(14,30,34,0.92) 0%, rgba(30,58,66,0.72) 46%,
+    rgba(43,71,80,0.30) 74%, rgba(43,71,80,0.06) 100%);
+}
+.banner--midia .banner__eyebrow { color: var(--blue); }
+.banner--midia .banner__text b  { color: var(--blue); }
+
+/* O nome da coluna em DM Serif itálico — é título de coluna, não manchete */
+.banner__coluna {
+  font-family: var(--serif);
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: clamp(30px, 5vw, 40px);
+  line-height: 1.06;
+}
+
+/* No mobile o texto ocupa a largura toda, então o véu horizontal deixa de
+   proteger a leitura: vira vertical, escuro embaixo (onde o texto fica). */
+@media (max-width: 640px) {
+  .banner::before,
+  .banner--comunidade::before {
+    background: linear-gradient(180deg,
+      rgba(12,20,11,0.42) 0%, rgba(20,32,18,0.78) 42%,
+      rgba(12,20,11,0.93) 100%);
+  }
+  .banner__text { max-width: none; }
+}
+
+/* ---- 5 · Contatos ------------------------------------------------------- */
+
+/* Preto: fecha a pilha de cores (âmbar → terracota → verde → azul → preto)
+   e não compete com nenhum banner de oferta acima. */
+.contatos {
+  position: relative;
+  background: var(--ink);
+  border-radius: 24px;
+  padding: 38px 32px 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  overflow: hidden;
+}
+
+/* Repete a assinatura do topo do hero, fechando a página pelo mesmo motivo. */
+.contatos::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: var(--gradient-assinatura);
+}
+
+.contatos__title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.contatos__lede {
+  margin: -6px 0 2px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(250,250,250,0.62);
+}
+
+.contatos__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+}
+.pill svg { width: 17px; height: 17px; flex: 0 0 auto; fill: currentColor; }
+.pill:hover { background: var(--ambar); border-color: var(--ambar); color: var(--ink); transform: translateY(-2px); }
+
+/* ---- Footer ------------------------------------------------------------- */
+
+.site-footer {
+  margin-top: 36px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Era #8A9A93 sobre creme: ~2,6:1, reprova AA. --text-muted passa com folga. */
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.site-footer img { width: 16px; height: 16px; object-fit: contain; opacity: 0.7; }

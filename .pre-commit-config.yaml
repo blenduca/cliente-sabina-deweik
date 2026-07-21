@@ -1,0 +1,7 @@
+# Instale o framework: pipx install pre-commit  (ou pip install pre-commit)
+# Ative no repo:       pre-commit install
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks

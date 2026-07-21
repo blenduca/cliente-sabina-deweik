@@ -1,0 +1,15 @@
+# gitleaks — estende as regras padrão e ignora placeholders óbvios.
+title = "gitleaks"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Falsos positivos conhecidos (placeholders, não segredos reais)"
+regexes = [
+  '''(?i)(EXEMPLO|PLACEHOLDER|TODO|SEU[_-]?TOKEN|CHANGE[_-]?ME)''',
+  '''<[^>]+>''',
+]
+paths = [
+  '''\.gitleaks\.toml$''',
+]

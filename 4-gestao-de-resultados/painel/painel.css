@@ -1,0 +1,622 @@
+/* ==========================================================================
+   TORRE DE CONTROLE — Marketing · Sabina Deweik
+   --------------------------------------------------------------------------
+   Consome os tokens REAIS do design system (não copia hex). Se a marca mudar
+   em recursos/design-system/, esta tela muda junto — esse é o ponto.
+
+   ⚠️ TEMA VIDRO ESCURO: no FIM deste arquivo há um bloco que reveste a tela de
+   vidro escuro — exceção CONSCIENTE ao "light only" do design system, porque
+   isto é cockpit interno de operação, não a face pública da marca. Usa os HUES
+   da marca sobre um campo escuro; as superfícies de vidro são locais. O bloco é
+   removível: apagá-lo devolve a tela ao claro do DS.
+
+   `ds/` é gerado por `npm run sync:tokens` a partir de sistema/tokens/. A cópia
+   existe porque esta pasta é a raiz do deploy: um import para fora dela resolve
+   no servidor local e morre em produção. Não editar ds/ à mão.
+   ========================================================================== */
+
+@import url("ds/tokens/fonts.css");
+@import url("ds/tokens/colors.css");
+@import url("ds/tokens/typography.css");
+@import url("ds/tokens/spacing.css");
+@import url("ds/tokens/effects.css");
+
+/* --------------------------------------------------------------------------
+   Tokens de DADOS — derivados da paleta da marca e VALIDADOS
+   (scripts/validate_palette.js do skill dataviz, superfície #FFFFFF).
+
+   Categórico (3 slots, all-pairs PASS — 4 slots reprova, por isso "Outros"):
+     âmbar #C97F2E · verde #3E7A38 · azul #2B6CB0
+     CVD 7,9 na banda de piso → exige codificação secundária:
+     legenda + rótulos diretos + gap de 2px. Todos presentes.
+
+   Ordinal do funil (7 degraus, verde da marca — todos os checks PASS).
+
+   Temperatura = DIVERGENTE (frio ↔ quente) com neutro no meio;
+   sempre com ícone + rótulo, nunca só cor.
+   -------------------------------------------------------------------------- */
+:root {
+  /* categórico — identidade de funil */
+  --serie-curso: #C97F2E;
+  --serie-comunidade: #3E7A38;
+  --serie-outros: #2B6CB0;
+
+  /* ordinal — degraus do funil (claro → escuro) */
+  --funil-1: #A8BBA3;
+  --funil-2: #90A88A;
+  --funil-3: #789371;
+  --funil-4: #5F7D58;
+  --funil-5: #4A6743;
+  --funil-6: #37512F;
+  --funil-7: #25391E;
+
+  /* divergente — temperatura da base */
+  --temp-frio: #4F7E8C;
+  --temp-morno: #8F8880;
+  --temp-quente: #C97F2E;
+
+  /* estados de instrumentação */
+  --estado-ok: var(--marca-verde-ink);
+  --estado-warn: var(--marca-ambar-ink);
+  --estado-off: rgba(13, 13, 13, 0.38);
+
+  --grid-line: rgba(13, 13, 13, 0.10);
+  --sidebar-w: 232px;
+}
+
+* { box-sizing: border-box; }
+
+/* `hidden` tem que vencer qualquer `display` de classe. Sem isto, um bloco
+   com .aviso{display:flex} ignora o atributo e aparece sempre — foi o que
+   fez o banner de erro surgir com a tela funcionando. */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--surface-bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--selection-bg); color: var(--selection-fg); }
+
+.eyebrow {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-subtle);
+  margin: 0;
+}
+
+/* ══════════════════════════ Layout ══════════════════════════ */
+
+.app { display: grid; grid-template-columns: var(--sidebar-w) 1fr; min-height: 100vh; }
+
+.sidebar {
+  background: var(--marca-preto);
+  color: var(--marca-branco);
+  padding: var(--space-5) 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.sidebar__marca { padding: 0 var(--space-5); }
+.sidebar__nome {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  line-height: var(--leading-tight);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+.sidebar__sub {
+  font-size: var(--text-caption);
+  color: rgba(250, 250, 250, 0.55);
+  margin: var(--space-1) 0 0;
+}
+.sidebar__gradiente { height: 3px; background: var(--gradient-assinatura); margin: var(--space-4) 0 0; }
+
+/* ── Foco visível ──────────────────────────────────────────────────────────
+   Só o select e o input tinham anel; sidebar, botões, nav, <summary> e as
+   células clicáveis da matriz ficavam sem nenhuma indicação de foco. Regra
+   global primeiro, e depois a variante para a sidebar escura, onde o âmbar
+   não separa o suficiente do fundo. */
+:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+.sidebar :focus-visible {
+  outline-color: var(--marca-branco);
+}
+
+.nav { display: flex; flex-direction: column; gap: 2px; padding: 0 var(--space-3); }
+.nav__item {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: 10px var(--space-3);
+  border-radius: var(--radius-md);
+  color: rgba(250, 250, 250, 0.62);
+  font-size: var(--text-sm);
+  text-decoration: none;
+  border: none; background: none; width: 100%; text-align: left;
+  font-family: var(--font-ui); cursor: pointer;
+  transition: background 160ms var(--ease-smooth), color 160ms var(--ease-smooth);
+}
+.nav__item:hover { background: rgba(250, 250, 250, 0.07); color: var(--marca-branco); }
+.nav__item[aria-current="page"] { background: var(--accent); color: var(--marca-preto); font-weight: var(--weight-medium); }
+/* Era `opacity: .42` sobre um texto já a 62% — ~26% efetivos, ilegível. O item
+   está indisponível, não apagado: a etiqueta "v2" é que carrega essa informação,
+   e ela não precisa da cor para ser entendida. */
+.nav__item--futuro { color: rgba(250, 250, 250, 0.48); cursor: not-allowed; }
+.nav__item--futuro:hover { background: none; color: rgba(250, 250, 250, 0.48); }
+.nav__icone { width: 16px; text-align: center; flex: none; font-size: 0.95rem; }
+.nav__tag {
+  margin-left: auto; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid rgba(250, 250, 250, 0.28); border-radius: var(--radius-pill);
+  padding: 1px 6px; color: rgba(250, 250, 250, 0.5);
+}
+
+.sidebar__rodape { margin-top: auto; padding: 0 var(--space-5); font-size: var(--text-caption); color: rgba(250, 250, 250, 0.4); }
+
+.main { padding: var(--space-6) var(--space-7) var(--space-9); max-width: 1400px; }
+
+/* ══════════════════════════ Cabeçalho ══════════════════════════ */
+
+.topo { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; margin-bottom: var(--space-5); }
+.topo__titulo { font-family: var(--font-heading); font-size: 2.6rem; line-height: var(--leading-tight); letter-spacing: 0.02em; margin: var(--space-2) 0 0; }
+.topo__titulo em { font-family: var(--font-accent); font-style: italic; text-transform: none; letter-spacing: 0; color: var(--accent-ink); }
+
+.filtros { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; }
+.campo { display: flex; flex-direction: column; gap: 4px; }
+.campo > label { font-size: var(--text-caption); color: var(--text-subtle); letter-spacing: var(--tracking-wide); text-transform: uppercase; }
+select.controle {
+  font-family: var(--font-ui); font-size: var(--text-sm); color: var(--text-primary);
+  background: var(--surface-card); border: 1px solid var(--border-default);
+  border-radius: var(--control-radius); padding: 9px var(--space-4); min-width: 210px; cursor: pointer;
+}
+select.controle:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; }
+
+.btn {
+  font-family: var(--font-ui); font-size: var(--text-sm); font-weight: var(--weight-medium);
+  border-radius: var(--button-radius); padding: 10px var(--space-5); cursor: pointer;
+  border: 1px solid var(--marca-preto); background: var(--marca-preto); color: var(--marca-branco);
+  transition: transform 140ms var(--ease-smooth), background 140ms var(--ease-smooth);
+}
+.btn:hover { transform: translateY(-1px); }
+.btn--fantasma { background: transparent; color: var(--text-primary); }
+.btn--fantasma:hover { background: var(--surface-raised-alt); }
+
+/* ══════════════════════════ Aviso de dados ══════════════════════════ */
+
+.aviso {
+  display: flex; gap: var(--space-4); align-items: flex-start;
+  background: var(--warning-bg); border: 1px solid rgba(178, 106, 36, 0.35);
+  border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); margin-bottom: var(--space-6);
+}
+.aviso__icone { font-size: 1.1rem; line-height: 1.4; }
+.aviso__texto { font-size: var(--text-sm); margin: 0; }
+.aviso__texto strong { font-weight: var(--weight-semibold); }
+.aviso a { color: var(--link); }
+
+/* ══════════════════════════ Cards ══════════════════════════ */
+
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+.card__cabecalho { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-5); }
+.card__titulo { font-family: var(--font-heading); font-size: 1.25rem; letter-spacing: 0.04em; margin: 0; }
+.card__nota { font-size: var(--text-caption); color: var(--text-subtle); margin: var(--space-1) 0 0; max-width: 62ch; }
+
+.grade-topo { display: grid; grid-template-columns: 1.15fr 2fr; gap: var(--space-4); margin-bottom: var(--space-4); }
+.tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+.grade-graficos { display: grid; grid-template-columns: 1.35fr 1fr; gap: var(--space-4); margin-bottom: var(--space-4); }
+
+@media (max-width: 1100px) {
+  .grade-topo, .grade-graficos { grid-template-columns: 1fr; }
+  .app { grid-template-columns: 1fr; }
+  .sidebar { position: static; height: auto; }
+  .main { padding: var(--space-5) var(--space-4) var(--space-8); }
+}
+
+/* --- Herói: exatamente UM por tela, em sans (nunca display/serifada) --- */
+.heroi { display: flex; flex-direction: column; justify-content: center; }
+.heroi__valor {
+  font-family: var(--font-body);
+  font-size: 4rem;
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  margin: var(--space-3) 0 0;
+}
+.heroi__meta { font-size: var(--text-sm); color: var(--text-muted); margin: var(--space-3) 0 0; }
+.medidor { height: 8px; border-radius: var(--radius-pill); background: var(--accent-subtle); overflow: hidden; margin-top: var(--space-3); }
+.medidor__preenchido { height: 100%; background: var(--accent-strong); border-radius: var(--radius-pill); }
+
+/* --- Stat tiles --- */
+.tile { background: var(--surface-card); border: 1px solid var(--border-default); border-radius: var(--radius-md); padding: var(--space-4) var(--space-5); }
+.tile__rotulo { font-size: var(--text-caption); color: var(--text-subtle); margin: 0; }
+.tile__valor { font-family: var(--font-body); font-size: 1.75rem; font-weight: var(--weight-semibold); line-height: 1.15; margin: 6px 0 0; letter-spacing: var(--tracking-tight); }
+.tile__delta { font-size: var(--text-caption); margin: 4px 0 0; color: var(--text-muted); }
+.tile__delta--bom { color: var(--success); }
+.tile__delta--ruim { color: var(--danger); }
+
+/* ══════════════════════════ Funil ══════════════════════════ */
+
+.funil { display: flex; flex-direction: column; gap: 2px; }  /* 2px = o gap de superfície */
+
+.funil__cabecalho, .funil__linha {
+  display: grid;
+  grid-template-columns: 148px 1fr 92px 78px 132px;
+  align-items: center;
+  gap: var(--space-4);
+}
+.funil__cabecalho { padding-bottom: var(--space-2); }
+.funil__cabecalho span { font-size: var(--text-caption); color: var(--text-subtle); letter-spacing: var(--tracking-wide); text-transform: uppercase; }
+.funil__cabecalho .ao-fim { text-align: right; }
+
+.funil__etapa { font-size: var(--text-sm); font-weight: var(--weight-medium); text-align: right; }
+
+.funil__trilho { position: relative; height: 46px; display: flex; align-items: center; }
+.funil__barra {
+  height: 100%;
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;  /* ponta arredondada, quadrada na base */
+  display: flex; align-items: center; justify-content: flex-end;
+  padding-right: var(--space-4);
+  transition: filter 140ms var(--ease-smooth);
+  cursor: default;
+}
+.funil__linha:hover .funil__barra { filter: brightness(1.08); }
+.funil__valor { font-family: var(--font-body); font-size: 1.35rem; font-weight: var(--weight-semibold); letter-spacing: var(--tracking-tight); }
+
+.funil__taxa { font-size: var(--text-sm); font-weight: var(--weight-medium); font-variant-numeric: tabular-nums; }
+.funil__taxa--vazia { color: var(--text-faint); }
+.funil__media { font-size: var(--text-caption); color: var(--text-subtle); font-variant-numeric: tabular-nums; }
+.funil__media--acima { color: var(--success); }
+.funil__media--abaixo { color: var(--danger); }
+
+.fonte { display: inline-flex; align-items: center; gap: 5px; font-size: var(--text-caption); color: var(--text-subtle); justify-content: flex-end; width: 100%; text-align: right; white-space: nowrap; }
+.fonte__ponto { font-size: 0.7rem; line-height: 1; }
+.fonte__ponto.ok { color: var(--estado-ok); }
+.fonte__ponto.warn { color: var(--estado-warn); }
+.fonte__ponto.off { color: var(--estado-off); }
+.fonte__ponto.manual { color: var(--info); }
+
+.legenda-funil { display: flex; gap: var(--space-5); flex-wrap: wrap; margin-top: var(--space-5); padding-top: var(--space-4); border-top: 1px solid var(--grid-line); font-size: var(--text-caption); color: var(--text-muted); }
+.legenda-funil span { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ══════════════════════════ Gráficos ══════════════════════════ */
+
+.legenda { display: flex; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-4); }
+.legenda__item { display: inline-flex; align-items: center; gap: 7px; font-size: var(--text-caption); color: var(--text-muted); }
+.chave { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+
+.grafico { width: 100%; height: auto; display: block; overflow: visible; }
+.grafico text { font-family: var(--font-body); fill: var(--text-subtle); font-size: 11px; }
+.grafico .rotulo-valor { fill: var(--text-primary); font-weight: 600; font-size: 11px; }
+.grafico .linha-grade { stroke: var(--grid-line); stroke-width: 1; }
+.grafico .eixo { stroke: var(--border-default); stroke-width: 1; }
+.grafico .segmento { transition: opacity 140ms var(--ease-smooth); }
+.grafico:hover .segmento { opacity: 0.45; }
+.grafico .segmento:hover { opacity: 1; }
+
+/* Tooltip */
+.dica {
+  position: fixed; z-index: 40; pointer-events: none; opacity: 0;
+  background: var(--marca-preto); color: var(--marca-branco);
+  border-radius: var(--radius-sm); padding: 8px 11px;
+  font-size: var(--text-caption); line-height: 1.5; white-space: nowrap;
+  transition: opacity 120ms var(--ease-smooth);
+  box-shadow: 0 6px 20px rgba(13, 13, 13, 0.22);
+}
+.dica.visivel { opacity: 1; }
+.dica__titulo { font-weight: var(--weight-semibold); display: block; margin-bottom: 3px; }
+.dica__linha { display: flex; align-items: center; gap: 6px; }
+.dica__chave { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+
+/* ══════════════════════════ Tabelas ══════════════════════════ */
+
+.tabela-envolucro { overflow-x: auto; }
+table.tabela { width: 100%; border-collapse: collapse; font-size: var(--text-sm); min-width: 640px; }
+table.tabela th {
+  text-align: left; font-size: var(--text-caption); font-weight: var(--weight-medium);
+  color: var(--text-subtle); letter-spacing: var(--tracking-wide); text-transform: uppercase;
+  padding: 0 var(--space-4) var(--space-3) 0; border-bottom: 1px solid var(--border-default); white-space: nowrap;
+}
+table.tabela td { padding: var(--space-3) var(--space-4) var(--space-3) 0; border-bottom: 1px solid var(--grid-line); }
+table.tabela tbody tr:hover { background: var(--surface-raised-hover); }
+table.tabela .num { text-align: right; font-variant-numeric: tabular-nums; }
+table.tabela th.num { text-align: right; }
+.pilula { display: inline-flex; align-items: center; gap: 6px; font-size: var(--text-caption); border-radius: var(--radius-pill); padding: 3px 10px; background: var(--surface-raised-alt); }
+.pilula .chave { width: 8px; height: 8px; }
+.sem-dado { color: var(--text-faint); }
+
+
+.rodape-tabela { margin-top: var(--space-4); font-size: var(--text-caption); color: var(--text-subtle); }
+
+details.tabela-dados { margin-top: var(--space-4); }
+details.tabela-dados summary { font-size: var(--text-caption); color: var(--link); cursor: pointer; letter-spacing: var(--tracking-wide); text-transform: uppercase; }
+details.tabela-dados summary:hover { color: var(--link-hover); }
+details.tabela-dados[open] summary { margin-bottom: var(--space-4); }
+
+.rodape { margin-top: var(--space-7); padding-top: var(--space-5); border-top: 1px solid var(--border-default); font-size: var(--text-caption); color: var(--text-subtle); max-width: 78ch; }
+.rodape code { background: var(--surface-raised-alt); padding: 1px 5px; border-radius: var(--radius-xs); font-size: 0.95em; }
+
+/* ══════════════════════════ Expert List ══════════════════════════ */
+
+.tiles--cinco { grid-template-columns: repeat(5, 1fr); margin-bottom: var(--space-4); }
+@media (max-width: 1100px) { .tiles--cinco { grid-template-columns: repeat(2, 1fr); } }
+
+/* "Em risco" é o único número da tela que representa dinheiro saindo em
+   silêncio. Ganha borda — mas só quando é maior que zero. */
+.tile--alerta { border-color: rgba(176, 87, 61, 0.45); background: var(--danger-bg); }
+
+.aviso--erro { background: var(--danger-bg); border-color: rgba(176, 87, 61, 0.4); }
+.aviso--vivo { background: var(--success-bg); border-color: rgba(80, 112, 75, 0.35); }
+.aviso--vivo .aviso__icone { color: var(--success); }
+
+/* Etapa sem fonte: trilho fantasma. Mantém o lugar na sequência sem desenhar
+   volume que não foi medido. */
+.funil__barra--vazia {
+  background: repeating-linear-gradient(135deg,
+    rgba(13, 13, 13, 0.05) 0 6px, transparent 6px 12px);
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-xs);
+}
+.funil__valor--vazio {
+  position: absolute; left: var(--space-4);
+  font-size: var(--text-caption); color: var(--text-faint);
+  font-weight: var(--weight-regular); letter-spacing: var(--tracking-wide);
+}
+
+.grade-graficos--matriz { grid-template-columns: 1.5fr 1fr; }
+@media (max-width: 1100px) { .grade-graficos--matriz { grid-template-columns: 1fr; } }
+
+.matriz { display: flex; flex-direction: column; gap: 2px; }   /* 2px = gap de superfície */
+.matriz__linha { display: grid; grid-template-columns: 170px repeat(3, 1fr); gap: 2px; align-items: stretch; }
+.matriz__linha--cabecalho { margin-bottom: var(--space-2); }
+.matriz__rotulo-col { font-size: var(--text-caption); color: var(--text-subtle); text-align: center; }
+.matriz__rotulo-linha {
+  font-size: var(--text-sm); font-weight: var(--weight-medium);
+  display: flex; align-items: center; justify-content: flex-end;
+  text-align: right; padding-right: var(--space-3);
+}
+
+.matriz__celula {
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  /* Intensidade reforça a contagem; o número continua sendo a leitura. */
+  background: color-mix(in srgb, var(--accent) calc(var(--intensidade, 0) * 100%), var(--surface-card));
+  padding: var(--space-3) var(--space-2);
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  cursor: pointer; font-family: var(--font-ui);
+  transition: transform 140ms var(--ease-smooth), box-shadow 140ms var(--ease-smooth);
+}
+.matriz__celula:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(13, 13, 13, 0.10); }
+.matriz__celula.is-ativa { outline: 2px solid var(--marca-preto); outline-offset: 1px; }
+.matriz__celula.is-vazia { cursor: default; opacity: 0.55; }
+.matriz__celula.is-urgente { border-color: rgba(178, 106, 36, 0.55); }
+.matriz__n { font-size: 1.35rem; font-weight: var(--weight-semibold); line-height: 1.1; }
+.matriz__acao { font-size: var(--text-caption); color: var(--text-muted); text-align: center; }
+.matriz__celula.is-urgente .matriz__acao { color: var(--accent-ink); font-weight: var(--weight-medium); }
+
+.agenda { display: flex; flex-direction: column; gap: var(--space-4); }
+.agenda__grupo { border-left: 2px solid var(--border-default); padding-left: var(--space-4); }
+.agenda__grupo.is-critico { border-left-color: var(--accent-strong); }
+.agenda__titulo { font-size: var(--text-sm); font-weight: var(--weight-medium); margin: 0 0 var(--space-2); display: flex; align-items: center; gap: var(--space-2); }
+.agenda__n { font-size: var(--text-caption); background: var(--surface-raised-alt); border-radius: var(--radius-pill); padding: 1px 8px; color: var(--text-muted); }
+.agenda__vazio { font-size: var(--text-caption); color: var(--text-faint); margin: 0; }
+.agenda__lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.agenda__lista li { font-size: var(--text-sm); line-height: 1.4; }
+.agenda__meta { display: block; font-size: var(--text-caption); color: var(--text-subtle); }
+.agenda__mais { font-size: var(--text-caption); color: var(--text-subtle); }
+
+input.controle {
+  font-family: var(--font-ui); font-size: var(--text-sm); color: var(--text-primary);
+  background: var(--surface-card); border: 1px solid var(--border-default);
+  border-radius: var(--control-radius); padding: 9px var(--space-4); min-width: 240px;
+}
+input.controle:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; }
+
+/* ── Mobile ────────────────────────────────────────────────────────────────
+   Abaixo de 1100px a sidebar já colapsa, mas as tabelas de grade continuavam
+   com colunas em px fixo: em 390px as cinco colunas do funil se esmagavam a
+   ponto de o número não caber. Aqui o funil vira duas colunas — etapa+volume
+   e taxa — e o que sai continua disponível na tabela dentro do <details>. */
+@media (max-width: 560px) {
+  /* Etapa fixa e estreita; a barra de volume fica com o resto — é ela que
+     precisa de largura para a leitura comparativa funcionar. */
+  .funil__cabecalho,
+  .funil__linha {
+    grid-template-columns: 92px 1fr;
+    gap: var(--space-2);
+  }
+
+  /* Fonte, conversão e comparação com a média saem da linha: são leitura de
+     apoio e continuam na tabela de dados, que é a versão completa. */
+  .funil__cabecalho > :nth-child(n+3),
+  .funil__linha > :nth-child(n+3) {
+    display: none;
+  }
+
+  .matriz__cabecalho,
+  .matriz__linha {
+    grid-template-columns: 1fr;
+  }
+
+  .heroi__valor { font-size: 2.75rem; }
+}
+
+@media print { .sidebar, .filtros { display: none; } .app { grid-template-columns: 1fr; } }
+
+/* ── Movimento ─────────────────────────────────────────────────────────────
+   As outras páginas já respeitavam a preferência do sistema; esta não. Vale
+   para transições, hovers com transform e o scroll suave. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   TEMA VIDRO ESCURO  —  bloco removível
+   --------------------------------------------------------------------------
+   Exceção CONSCIENTE ao "light only" do design system. Justifica-se por isto
+   ser ferramenta interna (cockpit de operação), não a face pública da marca.
+   Usa os HUES da marca (âmbar/verde/terracota/azul) sobre um campo escuro; as
+   SUPERFÍCIES de vidro são locais. Se a avaliação disser que o claro é melhor,
+   basta apagar deste comentário até o fim do arquivo.
+
+   Assinatura: os painéis flutuam como instrumentos sobre um campo de
+   convergência — pontos de brilho da paleta da marca no escuro, ecoando
+   "O Mapa das Convergências".
+   ══════════════════════════════════════════════════════════════════════════ */
+:root {
+  /* superfícies e texto → escuro/vidro (crème sobre fundo profundo) */
+  --surface-bg: #0E1512;
+  --surface-card: rgba(247, 242, 236, 0.055);
+  --surface-raised-alt: rgba(247, 242, 236, 0.10);
+  --surface-raised-hover: rgba(247, 242, 236, 0.13);
+  --text-primary: #F4EFE7;
+  --text-muted: rgba(244, 239, 231, 0.74);
+  --text-subtle: rgba(244, 239, 231, 0.56);
+  --text-faint: rgba(244, 239, 231, 0.34);
+  --border-default: rgba(247, 242, 236, 0.14);
+
+  /* âmbar é a cor viva; no escuro sobe um tom para brilhar */
+  --accent: #E9974E;
+  --accent-strong: #F2A85C;
+  --accent-ink: #F0A65B;               /* era âmbar-escuro p/ creme; no escuro, claro */
+  --accent-subtle: rgba(233, 151, 78, 0.18);
+  --link: #F0A65B;
+  --link-hover: #F7BE7D;
+  --selection-bg: #E9974E;
+  --selection-fg: #0E1512;
+
+  --success: #86B771;
+  --success-bg: rgba(80, 112, 75, 0.20);
+  --danger-bg: rgba(176, 87, 61, 0.20);
+
+  /* data-viz recalibrado para o escuro */
+  --grid-line: rgba(247, 242, 236, 0.09);
+  --estado-off: rgba(247, 242, 236, 0.40);
+  --estado-ok: #86B771;
+  --estado-warn: #F0A65B;
+
+  /* rampa do funil: no claro ia até quase-preto (some no escuro); aqui a rampa
+     é do creme-esverdeado ao verde médio — degraus visíveis sobre o vidro */
+  --funil-1: #D6E4CE; --funil-2: #BBD0B0; --funil-3: #A0BC92;
+  --funil-4: #86A576; --funil-5: #6C8C5C; --funil-6: #547343; --funil-7: #405A31;
+
+  --temp-frio: #74A6B6; --temp-morno: #CBB99C; --temp-quente: #E9974E;
+  --serie-curso: #E9974E; --serie-comunidade: #86B771; --serie-outros: #7FA8C9;
+}
+
+/* O campo de convergência. Duas camadas:
+   1) CURVAS DE NÍVEL — anéis concêntricos finos em dois pontos de convergência,
+      a mesma gramática das capas da plataforma ("O Mapa das Convergências").
+      Puro CSS (repeating-radial-gradient), sem asset. É o que dá ao vidro o que
+      refratar — sem textura atrás, blur não vira vidro, vira painel chapado.
+   2) BRILHOS da paleta nos cantos, como cumes iluminados.
+   Fixo, atrás de tudo. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    repeating-radial-gradient(circle at 78% 18%, transparent 0 46px, rgba(247, 242, 236, 0.028) 46px 47px),
+    repeating-radial-gradient(circle at 22% 82%, transparent 0 52px, rgba(247, 242, 236, 0.022) 52px 53px),
+    radial-gradient(58% 48% at 12% -2%, rgba(233, 151, 78, 0.18), transparent 62%),
+    radial-gradient(52% 52% at 92% 10%, rgba(212, 134, 111, 0.15), transparent 60%),
+    radial-gradient(60% 60% at 86% 104%, rgba(80, 112, 75, 0.20), transparent 62%),
+    radial-gradient(48% 48% at 6% 96%, rgba(173, 196, 202, 0.12), transparent 60%),
+    #0E1512;
+}
+
+/* ── O vidro ────────────────────────────────────────────────────────────────
+   Fundo translúcido + blur + borda hairline. A aresta superior mais clara é a
+   luz "pegando" no vidro; a sombra longa faz o painel flutuar. */
+.card,
+.tile,
+.aviso,
+.matriz__celula {
+  background: var(--surface-card);
+  -webkit-backdrop-filter: blur(22px) saturate(1.25);
+  backdrop-filter: blur(22px) saturate(1.25);
+  border: 1px solid var(--border-default);
+  box-shadow:
+    inset 0 1px 0 rgba(247, 242, 236, 0.12),
+    0 22px 44px -24px rgba(0, 0, 0, 0.7);
+}
+
+.sidebar {
+  background: rgba(14, 21, 18, 0.55);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  backdrop-filter: blur(24px) saturate(1.2);
+  border-right: 1px solid var(--border-default);
+}
+.sidebar__gradiente { opacity: 0.9; }
+.nav__item[aria-current="page"] { background: var(--accent); color: var(--marca-preto); }
+/* Hover só no item INATIVO — passar o mouse no item ativo antes fazia ele
+   perder o âmbar (o :hover vinha depois com a mesma especificidade). No ativo,
+   o hover apenas clareia um tom o âmbar, sem trocar de cor. */
+.nav__item:hover:not([aria-current="page"]) { background: rgba(247, 242, 236, 0.08); }
+.nav__item[aria-current="page"]:hover { background: var(--accent-strong); color: var(--marca-preto); }
+
+/* Controles (selects, busca): vidro escuro, texto creme, foco âmbar. */
+.controle,
+select.controle,
+input.controle {
+  background: rgba(247, 242, 236, 0.06);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+}
+.controle option { background: #16211C; color: var(--text-primary); }
+.btn--fantasma { border: 1px solid var(--border-default); }
+.btn--fantasma:hover { background: rgba(247, 242, 236, 0.10); }
+
+/* Hero: número em creme com um respiro de âmbar (glow contido). */
+.heroi__valor { color: var(--text-primary); text-shadow: 0 0 30px rgba(233, 151, 78, 0.22); }
+.topo__titulo em { color: var(--accent-ink); }
+
+/* Tabelas sobre vidro: cabeçalho e linhas herdam os tokens; só o zebra some. */
+table.tabela th { color: var(--text-subtle); }
+.funil__barra--vazia { background: repeating-linear-gradient(-45deg, rgba(247,242,236,0.05) 0 6px, transparent 6px 12px); }
+/* "não instrumentado" carrega informação, então precisa passar AA (era 2,86:1). */
+.funil__valor--vazio { color: rgba(244, 239, 231, 0.6); }
+
+/* Matriz: célula de vidro; a intensidade da contagem vira um véu âmbar. */
+.matriz__celula { background: rgba(247, 242, 236, 0.05); }
+.matriz__celula.is-ativa { outline-color: var(--accent); }
+
+/* ── Movimento: UM momento ──────────────────────────────────────────────────
+   No load, os painéis sobem em cascata curta. O bloco reduced-motion acima já
+   neutraliza isto (com !important) para quem pede menos movimento. */
+@keyframes surgir-vidro {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+.grade-topo > *, .grade-graficos > *, #funil, #campanhas,
+.tiles--cinco, .grade-graficos--matriz > *, .view-expert .card {
+  animation: surgir-vidro 0.5s var(--ease-out, cubic-bezier(.16, 1, .3, 1)) both;
+}
+.grade-topo > *:nth-child(2) { animation-delay: 0.06s; }
+.grade-graficos > *:nth-child(2) { animation-delay: 0.06s; }
+#campanhas { animation-delay: 0.10s; }

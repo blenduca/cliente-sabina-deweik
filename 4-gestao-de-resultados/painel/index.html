@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Torre de Controle — Marketing · Sabina Deweik</title>
+  <link rel="stylesheet" href="painel.css">
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- ═══════════════ Navegação ═══════════════
+         A nav já desenha a plataforma multi-tenant: o que existe hoje está
+         ativo, o que vem depois fica visível e marcado. Esconder o roadmap
+         faz a tela parecer completa quando não está. -->
+    <aside class="sidebar">
+      <div class="sidebar__marca">
+        <p class="sidebar__nome">Sabina Deweik</p>
+        <p class="sidebar__sub">Torre de Controle</p>
+        <div class="sidebar__gradiente"></div>
+      </div>
+
+      <!-- data-view troca a vista dentro da mesma página; data-scroll rola até a
+           seção depois de garantir que a vista Torre está visível. -->
+      <nav class="nav" aria-label="Seções do painel">
+        <a class="nav__item" href="#" data-view="torre" aria-current="page"><span class="nav__icone" aria-hidden="true">◱</span> Visão geral</a>
+        <a class="nav__item" href="#funil" data-view="torre" data-scroll="funil"><span class="nav__icone" aria-hidden="true">▽</span> Funil</a>
+        <a class="nav__item" href="#campanhas" data-view="torre" data-scroll="campanhas"><span class="nav__icone" aria-hidden="true">◎</span> Campanhas</a>
+        <a class="nav__item" href="#expert" data-view="expert"><span class="nav__icone" aria-hidden="true">☰</span> Expert List</a>
+        <button class="nav__item nav__item--futuro" disabled><span class="nav__icone" aria-hidden="true">✎</span> Conteúdo <span class="nav__tag">v2</span></button>
+        <button class="nav__item nav__item--futuro" disabled><span class="nav__icone" aria-hidden="true">⚙</span> Configurações <span class="nav__tag">v2</span></button>
+      </nav>
+
+      <div class="sidebar__rodape">
+        <p>Torre de Controle<br>Sabina Deweik</p>
+      </div>
+    </aside>
+
+    <main class="main">
+
+      <!-- ═══════════════ Vista: Torre de Controle ═══════════════ -->
+      <div class="view" id="view-torre">
+
+      <header class="topo">
+        <div>
+          <p class="eyebrow">Motor de crescimento · Pilar 2</p>
+          <h1 class="topo__titulo">Torre de <em>controle</em></h1>
+        </div>
+
+        <div class="filtros">
+          <div class="campo">
+            <label for="sel-funil">Funil</label>
+            <select id="sel-funil" class="controle"></select>
+          </div>
+          <div class="campo">
+            <label for="sel-periodo">Período</label>
+            <select id="sel-periodo" class="controle">
+              <option value="30">Últimos 30 dias</option>
+              <option value="90">Últimos 90 dias</option>
+              <option value="0">Desde o início</option>
+            </select>
+          </div>
+          <button class="btn btn--fantasma" id="btn-exportar" type="button">Exportar CSV</button>
+        </div>
+      </header>
+
+      <!-- O aviso é estrutural, não decorativo: sem ele a tela mente. O texto
+           final é escrito pelo painel.js (renderAviso), conforme o estado real
+           da fonte; este é só o placeholder até o JS carregar. -->
+      <div class="aviso" role="status">
+        <span class="aviso__icone" aria-hidden="true">◐</span>
+        <p class="aviso__texto">Carregando os dados da base…</p>
+      </div>
+
+      <!-- ═══════════════ Topo: herói + tiles ═══════════════ -->
+      <section class="grade-topo">
+        <div class="card heroi">
+          <p class="eyebrow">Leads captados no período</p>
+          <p class="heroi__valor" id="heroi-valor">—</p>
+          <div class="medidor" role="img" aria-labelledby="heroi-meta">
+            <div class="medidor__preenchido" id="heroi-medidor" style="width:0%"></div>
+          </div>
+          <p class="heroi__meta" id="heroi-meta">—</p>
+        </div>
+
+        <div class="tiles" id="tiles"></div>
+      </section>
+
+      <!-- ═══════════════ Funil ═══════════════ -->
+      <section class="card" id="funil" style="margin-bottom:var(--space-4)">
+        <div class="card__cabecalho">
+          <div>
+            <h2 class="card__titulo">Funil por etapa</h2>
+            <p class="card__nota">
+              Largura em escala logarítmica — as etapas do fim continuam visíveis. A leitura real são os
+              números e as taxas; <strong>Média</strong> compara a taxa da etapa com o histórico dela.
+            </p>
+          </div>
+        </div>
+
+        <div class="funil__cabecalho" aria-hidden="true">
+          <span class="ao-fim">Etapa</span>
+          <span>Volume</span>
+          <span>Conversão</span>
+          <span>vs. média</span>
+          <span class="ao-fim">Fonte</span>
+        </div>
+
+        <div class="funil" id="funil-corpo"></div>
+
+        <div class="legenda-funil">
+          <span><span class="fonte__ponto ok" aria-hidden="true">●</span> Conectado</span>
+          <span><span class="fonte__ponto warn" aria-hidden="true">◐</span> Parcial — chega, mas sem atribuição</span>
+          <span><span class="fonte__ponto off" aria-hidden="true">○</span> Pendente — integração não existe</span>
+          <span><span class="fonte__ponto manual" aria-hidden="true">✎</span> Manual</span>
+        </div>
+
+        <details class="tabela-dados">
+          <summary>Ver como tabela</summary>
+          <div class="tabela-envolucro">
+            <table class="tabela" id="funil-tabela"></table>
+          </div>
+        </details>
+      </section>
+
+      <!-- ═══════════════ Evolução + temperatura ═══════════════ -->
+      <section class="grade-graficos">
+        <div class="card">
+          <div class="card__cabecalho">
+            <div>
+              <h2 class="card__titulo">Leads novos por mês</h2>
+              <p class="card__nota">Empilhado por funil de origem. Tudo fora dos dois funis cai em “Outros”.</p>
+            </div>
+          </div>
+          <div class="legenda" id="legenda-evolucao"></div>
+          <svg class="grafico" id="g-evolucao" viewBox="0 0 620 260" role="img"
+            aria-label="Colunas empilhadas de leads novos por mês, separados por funil de origem"></svg>
+          <details class="tabela-dados">
+            <summary>Ver como tabela</summary>
+            <div class="tabela-envolucro"><table class="tabela" id="evolucao-tabela"></table></div>
+          </details>
+        </div>
+
+        <div class="card">
+          <div class="card__cabecalho">
+            <div>
+              <h2 class="card__titulo">Composição por temperatura</h2>
+              <p class="card__nota">
+                Base que cresce com o percentual de frios subindo está inchando, não crescendo.
+              </p>
+            </div>
+          </div>
+          <div class="legenda" id="legenda-temperatura"></div>
+          <svg class="grafico" id="g-temperatura" viewBox="0 0 380 260" role="img"
+            aria-label="Composição percentual da base por temperatura ao longo dos meses"></svg>
+          <details class="tabela-dados">
+            <summary>Ver como tabela</summary>
+            <div class="tabela-envolucro"><table class="tabela" id="temperatura-tabela"></table></div>
+          </details>
+        </div>
+      </section>
+
+      <!-- ═══════════════ Campanhas (a ponte com a Expert List) ═══════════════ -->
+      <section class="card" id="campanhas" style="margin-bottom:var(--space-4)">
+        <div class="card__cabecalho">
+          <div>
+            <h2 class="card__titulo">Campanhas e origem</h2>
+            <p class="card__nota">
+              Agrupamento real por <code>utm_source · utm_medium · utm_campaign</code> sobre os leads.
+              A maioria cai em <code>(direto)</code> porque o tráfego pago ainda não carrega UTM — quando
+              carregar, as origens se separam aqui sem mudar nada nesta tela.
+            </p>
+          </div>
+        </div>
+        <div class="tabela-envolucro">
+          <table class="tabela" id="campanhas-tabela"></table>
+        </div>
+        <p class="rodape-tabela">
+          CPL = custo ÷ leads. Funis sem investimento aparecem como “—”, não como R$ 0,00 —
+          zero e “não se aplica” são coisas diferentes.
+        </p>
+      </section>
+
+      <footer class="rodape">
+        <p>
+          <strong>Modelo de referência.</strong> Esta página é a instância da Sabina e o protótipo da tela
+          multi-tenant da plataforma. Todo o acoplamento com dados está em <code>dados.js</code>:
+          trocar o literal por <code>fetch('/api/:tenant/torre')</code> não exige mudar nada do resto.
+          Tokens visuais vêm por <code>@import</code> do design system real — a marca é a fonte da verdade,
+          não uma cópia.
+        </p>
+        <p>
+          Paleta de dados validada com <code>validate_palette.js</code> sobre a paleta da marca:
+          categórico limitado a 3 séries (4 reprovam na separação para daltonismo), funil em rampa ordinal
+          de 7 degraus do verde, temperatura em escala divergente com neutro no meio e sempre com ícone.
+          Modo claro apenas — decisão do design system.
+        </p>
+      </footer>
+
+      </div><!-- /view-torre -->
+
+      <!-- ═══════════════ Vista: Expert List ═══════════════
+           Mesma fonte que a Torre (o serviço de ingestão → Postgres), mas a
+           tela de trabalho: matriz temperatura × RFV, agenda do dia e a base
+           filtrável. Inicializa sob demanda (painel.js chama expert-list.js
+           quando esta vista é aberta pela primeira vez). -->
+      <div class="view" id="view-expert" hidden>
+
+        <header class="topo">
+          <div>
+            <p class="eyebrow">Gestão de resultados · Pilar 4</p>
+            <h1 class="topo__titulo">Expert <em>list</em></h1>
+            <p class="fonte" id="estado-fonte" style="justify-content:flex-start;margin-top:var(--space-2)">carregando…</p>
+          </div>
+          <div class="filtros">
+            <button class="btn btn--fantasma" id="recarregar" type="button">Recarregar</button>
+            <button class="btn btn--fantasma" id="exportar" type="button">Exportar CSV</button>
+          </div>
+        </header>
+
+        <div class="aviso aviso--erro" id="erro" hidden role="alert">
+          <span class="aviso__icone" aria-hidden="true">○</span>
+          <p class="aviso__texto">
+            <strong>Não consegui ler a Expert List.</strong> O serviço de ingestão precisa estar rodando:
+            <code>node plataforma/ingest/servidor.mjs</code>.
+            <span id="erro-detalhe" class="sem-dado"></span>
+          </p>
+        </div>
+
+        <!-- com quem falo hoje · quem estou deixando esfriar · a base esquenta ou só cresce -->
+        <section class="tiles tiles--cinco" id="kpis"></section>
+
+        <section class="grade-graficos grade-graficos--matriz">
+          <div class="card">
+            <div class="card__cabecalho">
+              <div>
+                <h2 class="card__titulo">Temperatura × RFV</h2>
+                <p class="card__nota">
+                  O cruzamento é a tela — nenhum dos dois eixos sozinho diz o que fazer.
+                  Clique numa célula para filtrar a lista. A coluna 🔥 inteira é a fila do dia.
+                </p>
+              </div>
+            </div>
+            <div class="matriz" id="matriz"></div>
+          </div>
+
+          <div class="card">
+            <div class="card__cabecalho">
+              <div>
+                <h2 class="card__titulo">Com quem eu falo hoje</h2>
+                <p class="card__nota">Contato quente sem próximo passo é a falha mais cara da operação.</p>
+              </div>
+            </div>
+            <div class="agenda" id="agenda"></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card__cabecalho">
+            <div>
+              <h2 class="card__titulo">A base</h2>
+              <p class="card__nota" id="contagem">—</p>
+            </div>
+            <div class="filtros">
+              <input class="controle" id="busca" type="search" placeholder="Buscar nome, e-mail, empresa…" aria-label="Buscar">
+              <select class="controle" id="f-segmento" aria-label="Filtrar por segmento"></select>
+              <select class="controle" id="f-formulario" aria-label="Filtrar por funil"></select>
+              <button class="btn btn--fantasma" id="limpar" type="button" hidden>Limpar filtros</button>
+            </div>
+          </div>
+
+          <div class="tabela-envolucro">
+            <table class="tabela" id="tabela"></table>
+          </div>
+          <p class="rodape-tabela" id="vazio" hidden></p>
+
+          <p class="rodape-tabela">
+            Colunas derivadas (<code>temperatura</code>, <code>segmento_rfv</code>, <code>rfv</code>)
+            são recalculadas a cada leitura pela view <code>public.v_expert_list</code> — recência
+            envelhece sozinha, então um contato quente de três semanas atrás não continua quente.
+          </p>
+        </section>
+
+      </div><!-- /view-expert -->
+
+    </main>
+  </div>
+
+  <div class="dica" id="dica" role="tooltip" aria-hidden="true"></div>
+
+  <script type="module" src="painel.js"></script>
+</body>
+
+</html>

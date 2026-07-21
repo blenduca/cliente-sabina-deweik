@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sistema de Design — Sabina Deweik</title>
+<meta name="description" content="Sistema de Design de Sabina Deweik — paleta oficial, tipografia, voz, componentes e fotografia." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+<style>
+  :root{
+    --ambar:#E9974E; --verde:#50704B; --terracota:#D4866F; --azul:#ADC4CA;
+    --ambar-ink:#B26A24; --verde-ink:#3A5236; --terracota-ink:#B0573D; --azul-ink:#4F6E76;
+    --creme:#F7F2EC; --preto:#0D0D0D; --branco:#FFFFFF; --papel:#F0E9DF;
+    --gradiente:linear-gradient(160deg,#ECAA4C 0%,#D6886D 38%,#6C8972 68%,#99B5B6 100%);
+    --atmosfera:radial-gradient(120% 95% at 82% -10%, rgba(212,134,111,.30), rgba(173,196,202,.24) 46%, transparent 72%);
+    --display:"Bebas Neue",sans-serif; --serif:"DM Serif Display",Georgia,serif; --sans:"Space Grotesk",system-ui,sans-serif;
+    --s-16:16px; --s-24:24px; --s-32:32px; --s-48:48px; --s-64:64px; --s-96:96px;
+    --border:rgba(13,13,13,.10); --shadow:0 16px 44px -20px rgba(13,13,13,.20);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--creme);color:var(--preto);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1040px;margin-inline:auto;padding-inline:clamp(1.25rem,5vw,2.5rem)}
+  section{padding-block:var(--s-96);border-top:1px solid var(--border)}
+  .eyebrow{font-family:var(--sans);font-weight:500;letter-spacing:.16em;font-size:.78rem;color:var(--ambar-ink);text-transform:lowercase}
+  .sec-title{font-family:var(--display);font-size:clamp(2rem,5vw,3.2rem);line-height:.98;text-transform:uppercase;letter-spacing:.01em;margin:10px 0 var(--s-32)}
+  .lead{font-size:clamp(1.05rem,2vw,1.28rem);max-width:56ch;color:rgba(13,13,13,.75)}
+  .serif-it{font-family:var(--serif);font-style:italic}
+  code{font-family:var(--sans);font-size:.85em;color:var(--ambar-ink)}
+
+  /* asterisco reutilizável */
+  .ast{display:inline-block;color:var(--ambar)}
+  .ast svg{width:100%;height:100%;display:block}
+
+  /* rail claro */
+  nav#rail{position:fixed;top:0;left:0;height:100vh;width:212px;padding:var(--s-32) var(--s-24);
+    background:var(--branco);border-right:1px solid var(--border);display:flex;flex-direction:column;gap:3px;z-index:10;overflow:auto}
+  nav#rail .brand{display:flex;align-items:center;gap:10px;margin-bottom:var(--s-24)}
+  nav#rail .brand .ast{width:26px;height:26px}
+  nav#rail .brand b{font-family:var(--display);font-size:1.35rem;letter-spacing:.03em;line-height:.9}
+  nav#rail .brand small{display:block;font-size:.56rem;letter-spacing:.22em;color:var(--ambar-ink);margin-top:3px}
+  nav#rail a{color:rgba(13,13,13,.6);text-decoration:none;font-size:.82rem;padding:8px 10px;border-radius:8px;letter-spacing:.01em}
+  nav#rail a:hover{color:var(--preto);background:var(--creme)}
+  main{margin-left:212px}
+  @media(max-width:820px){nav#rail{position:static;width:auto;height:auto;flex-flow:row wrap;gap:4px}main{margin-left:0}nav#rail .brand{width:100%}}
+
+  /* capa clara com atmosfera + asterisco */
+  #capa{background:var(--atmosfera),var(--creme);border-top:none;position:relative;overflow:hidden}
+  #capa .ast.hero{position:absolute;top:6%;right:6%;width:min(230px,32vw);height:min(230px,32vw);opacity:.9}
+  #capa .big{font-family:var(--display);font-size:clamp(3.4rem,12vw,9rem);line-height:.86;text-transform:uppercase}
+  #capa .big em{color:var(--ambar);font-family:var(--serif);font-style:italic;text-transform:none}
+  #capa .bar{height:6px;width:min(560px,80%);background:var(--gradiente);margin:var(--s-32) 0;border-radius:99px}
+  .roles{display:flex;flex-wrap:wrap;gap:8px;margin-top:var(--s-24)}
+  .roles span{font-family:var(--sans);font-weight:500;letter-spacing:.06em;font-size:.78rem;padding:6px 14px;border:1px solid var(--border);border-radius:99px;background:var(--branco)}
+
+  /* manifesto — a única faixa verde (âncora), como no site */
+  #manifesto{background:var(--verde);color:var(--creme);text-align:center;border-top:none}
+  #manifesto .ast{width:44px;height:44px;color:var(--creme);opacity:.85;margin-inline:auto}
+  #manifesto q{display:block;font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,4vw,2.6rem);line-height:1.25;max-width:20ch;margin:var(--s-24) auto 0}
+
+  /* cores */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--s-16)}
+  .sw{border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:var(--branco)}
+  .sw .chip{height:110px}
+  .sw .meta{padding:14px 16px}
+  .sw .meta p{font-size:.78rem;color:rgba(13,13,13,.6);margin-top:4px}
+  .neutros{display:flex;gap:var(--s-16);flex-wrap:wrap;margin-top:var(--s-24)}
+  .neutros div{flex:1;min-width:120px;border-radius:12px;border:1px solid var(--border);padding:14px;font-size:.8rem}
+  .grad-block{height:110px;border-radius:16px;background:var(--gradiente);margin-top:var(--s-24);display:flex;align-items:flex-end;padding:14px;color:#fff;font-family:var(--display);letter-spacing:.12em}
+
+  /* tipografia */
+  .type-row{border-bottom:1px solid var(--border);padding:var(--s-24) 0}
+  .type-row .k{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,13,13,.5)}
+  .t-display{font-family:var(--display);font-size:clamp(3rem,8vw,6rem);line-height:.9;text-transform:uppercase}
+  .t-serif{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3rem);font-style:italic}
+  .t-body{font-family:var(--sans);font-size:1.15rem;max-width:60ch}
+
+  /* voz */
+  .voz{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-24)}
+  .voz .col{padding:var(--s-24);border-radius:16px}
+  .voz .do{background:rgba(80,112,75,.10);border:1px solid rgba(80,112,75,.28)}
+  .voz .dont{background:rgba(176,87,61,.09);border:1px solid rgba(176,87,61,.28)}
+  .voz h4{font-family:var(--display);letter-spacing:.1em;margin-bottom:12px}
+  .voz li{margin-left:18px;margin-bottom:6px;font-size:.95rem}
+  @media(max-width:640px){.voz{grid-template-columns:1fr}}
+
+  /* botões / componentes */
+  .btn{font-family:var(--display);letter-spacing:.1em;text-transform:uppercase;border:none;border-radius:99px;padding:14px 28px;font-size:.95rem;cursor:pointer}
+  .btn-primary{background:var(--ambar);color:var(--preto)}
+  .btn-secondary{background:var(--verde);color:var(--creme)}
+  .btn-ghost{background:transparent;border:1.5px solid var(--preto);color:var(--preto)}
+  .row{display:flex;gap:var(--s-16);flex-wrap:wrap;align-items:center}
+  .badge{display:inline-block;font-family:var(--sans);font-weight:600;letter-spacing:.08em;font-size:.72rem;padding:5px 12px;border-radius:99px;background:var(--azul);color:var(--azul-ink)}
+  .card{background:var(--branco);border-radius:16px;box-shadow:var(--shadow);padding:var(--s-24);max-width:340px}
+  .card .lbl{font-family:var(--sans);font-weight:600;letter-spacing:.14em;font-size:.72rem;color:var(--terracota-ink)}
+  .card h3{font-family:var(--display);font-size:1.6rem;text-transform:uppercase;margin:8px 0}
+  .stat{font-family:var(--display);font-size:3rem;color:var(--verde)}
+
+  /* formas */
+  .formas-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:var(--s-16)}
+  .forma{background:var(--branco);border:1px solid var(--border);border-radius:14px;padding:22px 12px;text-align:center;box-shadow:var(--shadow)}
+  .forma img{width:60px;height:60px;object-fit:contain;display:block;margin:0 auto 10px}
+  .forma span{font-size:.7rem;color:rgba(13,13,13,.55);letter-spacing:.03em}
+
+  /* fotografia */
+  .foto{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s-16)}
+  .foto .ph{position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+  .foto .ph img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.04);display:block}
+  .foto .ph span{position:absolute;left:14px;bottom:12px;color:#fff;font-size:.8rem;letter-spacing:.02em;text-shadow:0 1px 6px rgba(0,0,0,.55);z-index:1}
+
+  footer{border-top:1px solid var(--border);padding:var(--s-48) 0;font-size:.85rem;color:rgba(13,13,13,.6)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--s-16)}
+  footer .ast{width:30px;height:30px}
+  footer b{color:var(--ambar-ink);font-family:var(--display);letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<!-- símbolo asterisco (16 raios finos) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ast" viewBox="0 0 472 477"><path fill="currentColor" d="m 471.9 193.96 l -10.5 -34.44 l -154.3 47.03 l 100.79 -85.31 l -23.26 -27.47 l -93.94 79.51 L 349.56 65.2 l -31.61 -17.22 l -63.17 115.96 L 269.64 3.32 L 233.79 0 l -18.84 203.73 l -110.79 -135.9 l -27.9 22.75 l 83.43 102.34 l -143.06 -74.53 L 0 150.32 l 181.45 94.53 l -167.72 51.13 l 10.5 34.43 l 126.31 -38.5 L 27.41 396.13 l 23.26 27.48 l 116.28 -98.43 l -72.87 133.79 l 31.61 17.22 l 77.16 -141.66 l -12.15 131.48 l 35.84 3.32 l 16.15 -174.6 l 129.28 158.59 l 27.9 -22.75 l -101.92 -125.03 l 117.1 61.01 l 16.63 -31.92 l -155.5 -81.02 Z"/></symbol></svg>
+
+<nav id="rail">
+  <div class="brand"><span class="ast"><svg><use href="#ast"/></svg></span><b>SABINA<br>DEWEIK<small>SISTEMA DE DESIGN</small></b></div>
+  <a href="#capa">Capa</a>
+  <a href="#essencia">Essência</a>
+  <a href="#manifesto">Manifesto</a>
+  <a href="#cores">Cores</a>
+  <a href="#tipografia">Tipografia</a>
+  <a href="#voz">Voz</a>
+  <a href="#botoes">Botões</a>
+  <a href="#componentes">Componentes</a>
+  <a href="#formas">Formas</a>
+  <a href="#fotografia">Fotografia</a>
+  <a href="#aplicacao">Aplicação</a>
+</nav>
+
+<main>
+  <!-- CAPA -->
+  <section id="capa"><div class="wrap">
+    <span class="ast hero"><svg><use href="#ast"/></svg></span>
+    <div class="eyebrow">_ sistema de design · v1</div>
+    <div class="big">Me leva<br>pro <em>futuro</em></div>
+    <div class="bar"></div>
+    <p class="lead">Identidade visual de <b>Sabina Deweik</b> — futurista, caçadora de tendências, palestrante SXSW &amp; Web&nbsp;Summit. Rastrear, ler e digerir o futuro.</p>
+    <div class="roles"><span>Futurista</span><span>Caçadora de Tendências</span><span>Palestrante</span><span>Coach Ontológica</span></div>
+  </div></section>
+
+  <!-- ESSÊNCIA -->
+  <section id="essencia"><div class="wrap">
+    <div class="eyebrow">_ 01 · essência</div>
+    <h2 class="sec-title">O que a marca sente</h2>
+    <p class="lead">Clara, sofisticada e humana. A base é <span class="serif-it">creme e arejada</span>; a cor entra em <span class="serif-it">acentos quentes</span> (âmbar, terracota) com o verde como âncora. A fotografia é sempre <span class="serif-it">preto e branco editorial</span>. O <b>asterisco</b> ✳ é a assinatura — o ponto que marca uma tendência no radar.</p>
+  </div></section>
+
+  <!-- MANIFESTO (faixa verde âncora) -->
+  <section id="manifesto"><div class="wrap">
+    <span class="ast"><svg><use href="#ast"/></svg></span>
+    <q>Não existe o futuro. Existem futuros — e eu ajudo a lê-los.</q>
+  </div></section>
+
+  <!-- CORES -->
+  <section id="cores"><div class="wrap">
+    <div class="eyebrow">_ 02 · cores</div>
+    <h2 class="sec-title">Paleta oficial</h2>
+    <p class="lead" style="margin-bottom:var(--s-32)">Base clara; hues cheios em blocos/botões/ícones; para texto pequeno sobre creme, usar as versões <b>ink</b>.</p>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:#E9974E"></div><div class="meta"><b>Âmbar</b> · <code>#E9974E</code><p>accent / CTA / asterisco · ink #B26A24</p></div></div>
+      <div class="sw"><div class="chip" style="background:#50704B"></div><div class="meta"><b>Verde</b> · <code>#50704B</code><p>âncora / faixas / marca · ink #3A5236</p></div></div>
+      <div class="sw"><div class="chip" style="background:#D4866F"></div><div class="meta"><b>Terracota</b> · <code>#D4866F</code><p>apoio quente · ink #B0573D</p></div></div>
+      <div class="sw"><div class="chip" style="background:#ADC4CA"></div><div class="meta"><b>Azul acinzentado</b> · <code>#ADC4CA</code><p>apoio frio / info · ink #4F6E76</p></div></div>
+    </div>
+    <div class="neutros">
+      <div style="background:#F7F2EC"><b>Creme</b> #F7F2EC<br><small>fundo (dominante)</small></div>
+      <div style="background:#FFFFFF"><b>Branco</b> #FFFFFF<br><small>cards/superfície</small></div>
+      <div style="background:#0D0D0D;color:#fff"><b>Preto</b> #0D0D0D<br><small>texto</small></div>
+    </div>
+    <div class="grad-block">GRADIENTE-ASSINATURA · âmbar → terracota → verde → azul</div>
+  </div></section>
+
+  <!-- TIPOGRAFIA -->
+  <section id="tipografia"><div class="wrap">
+    <div class="eyebrow">_ 03 · tipografia</div>
+    <h2 class="sec-title">Três vozes</h2>
+    <div class="type-row"><div class="k">Display · Bebas Neue · títulos caixa-alta</div><div class="t-display">Digerir o futuro</div></div>
+    <div class="type-row"><div class="k">Acento · DM Serif Display itálico · a palavra-assinatura</div><div class="t-serif">tendências</div></div>
+    <div class="type-row"><div class="k">Corpo · Space Grotesk 300–700 · UI e leitura</div><div class="t-body">Sabina se dedica a rastrear, ler e digerir o futuro através de palestras, workshops e capacitações — levando inovação, futuro e humanização.</div></div>
+  </div></section>
+
+  <!-- VOZ -->
+  <section id="voz"><div class="wrap">
+    <div class="eyebrow">_ 04 · voz</div>
+    <h2 class="sec-title">Como fala</h2>
+    <p class="lead" style="margin-bottom:var(--s-32)">Prospectiva, investigativa e humanista. Traduz o complexo (futuro, comportamento) em algo acessível e acolhedor.</p>
+    <div class="voz">
+      <div class="col do"><h4>FAZER</h4><ul>
+        <li>Frases diretas, com autoridade calma.</li>
+        <li>Futuro como oportunidade humana, não hype.</li>
+        <li>Dados/tendências traduzidos em sentido.</li>
+        <li>Muito respiro; a palavra-assinatura em serif itálico.</li>
+      </ul></div>
+      <div class="col dont"><h4>EVITAR</h4><ul>
+        <li>Fundos escuros pesados; preferir claro/arejado.</li>
+        <li>Tom saturado/"pop" gritante.</li>
+        <li>Promessas mágicas sem lastro de pesquisa.</li>
+        <li>Mais de 3 blocos de cor por seção.</li>
+      </ul></div>
+    </div>
+  </div></section>
+
+  <!-- BOTÕES -->
+  <section id="botoes"><div class="wrap">
+    <div class="eyebrow">_ 05 · botões</div>
+    <h2 class="sec-title">Chamadas</h2>
+    <div class="row">
+      <button class="btn btn-primary">Quero ir pro futuro</button>
+      <button class="btn btn-secondary">Ver palestras</button>
+      <button class="btn btn-ghost">Saber mais</button>
+    </div>
+    <p class="lead" style="margin-top:var(--s-24)">Pílula (radius 99px). Primário = âmbar (o CTA da marca). Secundário = verde. Fantasma = contorno preto.</p>
+  </div></section>
+
+  <!-- COMPONENTES -->
+  <section id="componentes"><div class="wrap">
+    <div class="eyebrow">_ 06 · componentes</div>
+    <h2 class="sec-title">Blocos</h2>
+    <div class="row" style="align-items:flex-start">
+      <div class="card">
+        <span class="badge">SXSW SPEAKER</span>
+        <div class="lbl" style="margin-top:12px">PALESTRA</div>
+        <h3>Me Leva pro Futuro</h3>
+        <p style="font-size:.95rem;color:rgba(13,13,13,.7)">Tendências, inovação e humanização em uma leitura acessível do que vem aí.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div class="lbl">ALCANCE</div>
+        <div class="stat">+200</div>
+        <p style="font-size:.95rem;color:rgba(13,13,13,.7)">palestras e capacitações realizadas</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:var(--s-24)">Cards em branco sobre creme, sombra quente. Badge no azul (info). Section labels com prefixo <code>_</code>.</p>
+  </div></section>
+
+  <!-- FORMAS -->
+  <section id="formas"><div class="wrap">
+    <div class="eyebrow">_ 07 · formas</div>
+    <h2 class="sec-title">Grafismos da marca</h2>
+    <p class="lead" style="margin-bottom:var(--s-32)">Formas da agência — asterisco, sol, meia-lua, mola e variações. Silhuetas <b>recoloríveis</b> (aqui em preto) para usar em qualquer cor da paleta. Fonte editável: <code>FORMAS.ai</code> (Drive); rasters coloridos em <code>*@2x.png</code>.</p>
+    <div class="formas-grid">
+      <div class="forma"><img src="assets/grafismos/asterisco-1.svg" alt="Asterisco 1"><span>asterisco 1</span></div>
+      <div class="forma"><img src="assets/grafismos/asterisco-2.svg" alt="Asterisco 2"><span>asterisco 2</span></div>
+      <div class="forma"><img src="assets/grafismos/sol-1.svg" alt="Sol 1"><span>sol 1</span></div>
+      <div class="forma"><img src="assets/grafismos/sol-2.svg" alt="Sol 2"><span>sol 2</span></div>
+      <div class="forma"><img src="assets/grafismos/meia-lua.svg" alt="Meia-lua"><span>meia-lua</span></div>
+      <div class="forma"><img src="assets/grafismos/meia-lua2.svg" alt="Meia-lua 2"><span>meia-lua 2</span></div>
+      <div class="forma"><img src="assets/grafismos/mola.svg" alt="Mola"><span>mola</span></div>
+      <div class="forma"><img src="assets/grafismos/mola-2.svg" alt="Mola 2"><span>mola 2</span></div>
+      <div class="forma"><img src="assets/grafismos/ativo-2.svg" alt="Ativo 2"><span>ativo 2</span></div>
+      <div class="forma"><img src="assets/grafismos/ativo-3.svg" alt="Ativo 3"><span>ativo 3</span></div>
+      <div class="forma"><img src="assets/grafismos/ativo-6.svg" alt="Ativo 6"><span>ativo 6</span></div>
+      <div class="forma"><img src="assets/grafismos/ativo-7.svg" alt="Ativo 7"><span>ativo 7</span></div>
+    </div>
+  </div></section>
+
+  <!-- FOTOGRAFIA -->
+  <section id="fotografia"><div class="wrap">
+    <div class="eyebrow">_ 08 · fotografia</div>
+    <h2 class="sec-title">Preto e branco editorial</h2>
+    <p class="lead" style="margin-bottom:var(--s-32)">A cor vive nos gráficos; a foto é sempre <b>P&amp;B de alto contraste</b>. Retratos de palco (movimento, autoridade) + imagens conceituais (natureza que emerge do concreto = futuro/resiliência), sobre texturas de papel/concreto.</p>
+    <div class="foto">
+      <div class="ph"><picture><source srcset="assets/fotos-e-produtos/sabina-palco-vertical.avif" type="image/avif"><img src="assets/fotos-e-produtos/sabina-palco-vertical.webp" alt="Sabina no palco — retrato vertical" loading="lazy" decoding="async"></picture><span>Palco · retrato</span></div>
+      <div class="ph"><picture><source srcset="assets/fotos-e-produtos/sabina-palco-horizontal.avif" type="image/avif"><img src="assets/fotos-e-produtos/sabina-palco-horizontal.webp" alt="Sabina no palco — panorâmica" loading="lazy" decoding="async"></picture><span>Palco · wide</span></div>
+      <div class="ph"><picture><source srcset="assets/fotos-e-produtos/sabina-retrato.avif" type="image/avif"><img src="assets/fotos-e-produtos/sabina-retrato.webp" alt="Sabina — retrato/close" loading="lazy" decoding="async"></picture><span>Retrato · close</span></div>
+    </div>
+  </div></section>
+
+  <!-- APLICAÇÃO -->
+  <section id="aplicacao"><div class="wrap">
+    <div class="eyebrow">_ 09 · aplicação</div>
+    <h2 class="sec-title">Onde vive</h2>
+    <p class="lead">Este sistema é o <b>portão</b>: LP, linktree, funis e criativos consomem estes tokens (<code>sistema/tokens/</code>) — nunca cores fora da paleta. Os nomes técnicos antigos <code>--pop-*</code> foram aliasados para esta paleta, então nada quebra ao migrar.</p>
+  </div></section>
+
+  <footer><div class="wrap">
+    <div class="row"><span class="ast"><svg><use href="#ast"/></svg></span><span><b>SABINA DEWEIK</b> · Sistema de Design v1 — Bebas Neue / DM Serif Display / Space Grotesk</span></div>
+    <div>Tokens: <code>recursos/design-system/sistema/tokens/</code> · em validação</div>
+  </div></footer>
+</main>
+</body>
+</html>

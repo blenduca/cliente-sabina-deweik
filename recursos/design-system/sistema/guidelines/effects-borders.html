@@ -1,0 +1,18 @@
+<!-- @dsCard group="Spacing" viewport="700x160" name="Borders &amp; Block Gaps" subtitle="No hairlines — color blocks touch via a 2px gap; 4px accent section stripe" -->
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  body{margin:0;background:#0D0D0D;padding:20px;box-sizing:border-box;font-family:var(--font-sans-pop);color:#FAFAFA;font-size:11px;display:flex;flex-direction:column;gap:14px;}
+  .blocks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;height:56px;}
+  .stripe{border-top:4px solid var(--pop-amarelo);padding:10px 0 0;color:rgba(250,250,250,.7);}
+</style>
+</head>
+<body>
+  <div>--block-gap · 2px preto gap between color blocks (no stroked border)
+    <div class="blocks"><div style="background:#00A651"></div><div style="background:#E8683A"></div><div style="background:#5BC9D9"></div></div>
+  </div>
+  <div class="stripe">--border-width-accent · 4px amarelo top-stripe marks a new section</div>
+</body>
+</html>

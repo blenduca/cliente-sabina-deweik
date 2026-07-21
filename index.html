@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ativos da Sabina Deweik · Validação de design</title>
+  <meta name="description" content="Pré-visualização das páginas da Sabina Deweik para validação de design. Formulários desativados nesta versão.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="assets/asterisco.svg">
+
+  <link rel="preload" href="ds/fonts/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="ds/fonts/SpaceGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="ds/tokens/fonts.css">
+
+  <style>
+    /* Tokens da marca — cópia gerada por `npm run sync:tokens`. Esta pasta é a
+       raiz do deploy da Pages, então importa o `ds/` local, não um caminho acima. */
+    @import url("ds/tokens/colors.css");
+    @import url("ds/tokens/typography.css");
+    @import url("ds/tokens/spacing.css");
+    @import url("ds/tokens/effects.css");
+    @import url("ds/tokens/base.css");
+
+    /* ══════════════════════════════════════════════════════════════
+       HUB DE VALIDAÇÃO — índice dos ativos da Sabina.
+       Assinatura: a página é a "legenda de um mapa" (o negócio é O Mapa das
+       Convergências) — curvas de nível ao fundo, ativos como pontos com selo
+       de estado. Discreto: a informação é o estado de cada página.
+       ══════════════════════════════════════════════════════════════ */
+
+    body {
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Curvas de nível ao fundo — o grafismo da linha de produto, bem apagado. */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        repeating-radial-gradient(circle at 82% 12%,
+          transparent 0, transparent 26px, var(--accent-subtle) 26px, var(--accent-subtle) 27px),
+        repeating-radial-gradient(circle at 12% 88%,
+          transparent 0, transparent 32px, rgba(80, 112, 75, 0.06) 32px, rgba(80, 112, 75, 0.06) 33px);
+      opacity: 0.9;
+    }
+
+    .wrap {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: clamp(3rem, 8vw, 6rem) var(--container-pad) var(--space-9);
+    }
+
+    /* ---- Cabeçalho ---- */
+    .cabecalho { max-width: 40ch; margin-bottom: var(--space-8); }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-4);
+    }
+    .eyebrow img { width: 22px; height: 22px; }
+
+    .cabecalho h1 {
+      font-size: var(--text-h1);
+      letter-spacing: var(--tracking-tight);
+      line-height: var(--leading-tight);
+    }
+    .cabecalho h1 em { text-transform: none; }
+
+    .lead {
+      margin-top: var(--space-5);
+      font-size: var(--text-body-lg);
+      line-height: var(--leading-snug);
+      color: var(--text-muted);
+      max-width: 52ch;
+    }
+
+    /* ---- Legenda de estados (informação, não enfeite) ---- */
+    .legenda {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+      margin-bottom: var(--space-8);
+      padding: var(--space-4) var(--space-5);
+      background: var(--surface-raised);
+      border: var(--border-width-hairline) solid var(--border-default);
+      border-radius: var(--radius-lg);
+    }
+    .legenda__item {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+    }
+    .legenda__item b {
+      font-weight: var(--weight-semibold);
+      color: var(--text-primary);
+    }
+    .ponto {
+      width: 9px;
+      height: 9px;
+      border-radius: var(--radius-circle);
+      flex: none;
+      transform: translateY(1px);
+    }
+    .ponto--publicado { background: var(--success); }
+    .ponto--rascunho { background: var(--accent-strong); }
+    .ponto--interno { background: var(--info); }
+
+    /* ---- Grupos ---- */
+    .grupo { margin-bottom: var(--space-8); }
+    .grupo__titulo {
+      font-family: var(--font-label);
+      font-size: var(--text-label);
+      letter-spacing: var(--tracking-label);
+      color: var(--accent-ink);
+      padding-bottom: var(--space-3);
+      margin-bottom: var(--space-5);
+      border-bottom: var(--border-width-hairline) solid var(--border-default);
+    }
+    .grupo__nota {
+      font-size: var(--text-sm);
+      color: var(--text-subtle);
+      margin: calc(var(--space-5) * -1 + var(--space-1)) 0 var(--space-5);
+      max-width: 60ch;
+    }
+
+    .grade {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: var(--space-5);
+    }
+
+    /* ---- Cartão de ativo ---- */
+    .ativo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      padding: var(--space-5);
+      background: var(--surface-card);
+      border: var(--border-width-hairline) solid var(--border-default);
+      border-radius: var(--radius-lg);
+      color: var(--text-primary);
+      transition: transform var(--duration-base) var(--ease-out),
+        box-shadow var(--duration-base) var(--ease-out),
+        border-color var(--duration-base) var(--ease-out);
+    }
+    .ativo:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+    .ativo:focus-visible { box-shadow: var(--focus-ring), var(--shadow-md); }
+
+    .ativo__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+    .ativo__tag {
+      font-family: var(--font-label);
+      font-size: var(--text-caption);
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      color: var(--text-subtle);
+    }
+
+    .selo {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-caption);
+      font-weight: var(--weight-semibold);
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+    }
+    .selo::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: var(--radius-circle);
+    }
+    .selo--publicado { background: var(--success-bg); color: var(--success); }
+    .selo--publicado::before { background: var(--success); }
+    .selo--rascunho { background: var(--warning-bg); color: var(--warning); }
+    .selo--rascunho::before { background: var(--accent-strong); }
+    .selo--interno { background: var(--info-bg); color: var(--info); }
+    .selo--interno::before { background: var(--info); }
+
+    .ativo__nome {
+      font-size: var(--text-h3);
+      letter-spacing: var(--tracking-wide);
+    }
+    .ativo__desc {
+      font-size: var(--text-sm);
+      line-height: var(--leading-snug);
+      color: var(--text-muted);
+      flex: 1;
+    }
+    .ativo__ir {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+      font-family: var(--font-ui);
+      font-size: var(--text-sm);
+      font-weight: var(--weight-semibold);
+      color: var(--accent-ink);
+    }
+    .ativo__ir span { transition: transform var(--duration-base) var(--ease-out); }
+    .ativo:hover .ativo__ir span { transform: translateX(4px); }
+
+    /* ---- Rodapé ---- */
+    .rodape {
+      margin-top: var(--space-9);
+      padding-top: var(--space-5);
+      border-top: var(--border-width-hairline) solid var(--border-default);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-6);
+      font-size: var(--text-sm);
+      color: var(--text-subtle);
+    }
+    .rodape b { color: var(--text-muted); font-weight: var(--weight-medium); }
+
+    /* Revelação de carga — apenas se o movimento for bem-vindo. */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(14px); animation: sobe 0.6s var(--ease-out) forwards; }
+      .reveal:nth-child(2) { animation-delay: 0.05s; }
+      .reveal:nth-child(3) { animation-delay: 0.1s; }
+      @keyframes sobe { to { opacity: 1; transform: none; } }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="cabecalho reveal">
+      <span class="eyebrow ds-label">
+        <img src="assets/asterisco.svg" alt="">Pré-visualização de design
+      </span>
+      <h1>Os <em>ativos</em> da Sabina</h1>
+      <p class="lead">
+        Cada página está publicada aqui para você aprovar o design antes de entrar no ar.
+        Os formulários estão em pré-visualização — nada é enviado. O que você achar guia os
+        próximos ajustes.
+      </p>
+    </header>
+
+    <div class="legenda reveal" aria-label="Legenda dos estados">
+      <span class="legenda__item"><span class="ponto ponto--publicado"></span><b>Publicado</b> pronto para o ar</span>
+      <span class="legenda__item"><span class="ponto ponto--rascunho"></span><b>Rascunho</b> em construção</span>
+      <span class="legenda__item"><span class="ponto ponto--interno"></span><b>Interno</b> ferramenta de operação</span>
+    </div>
+
+    <section class="grupo reveal">
+      <h2 class="grupo__titulo">Páginas do público</h2>
+      <div class="grade">
+
+        <a class="ativo" href="2-motor-de-crescimento/marketing/linktree/index.html">
+          <div class="ativo__top">
+            <span class="ativo__tag">Bio · Links</span>
+            <span class="selo selo--publicado">Publicado</span>
+          </div>
+          <h3 class="ativo__nome">Linktree</h3>
+          <p class="ativo__desc">A página de links da bio — leva para a comunidade, o curso e os canais da Sabina.</p>
+          <span class="ativo__ir">Abrir <span aria-hidden="true">→</span></span>
+        </a>
+
+        <a class="ativo" href="2-motor-de-crescimento/marketing/lp-comunidade-gratuita/index.html">
+          <div class="ativo__top">
+            <span class="ativo__tag">Comunidade</span>
+            <span class="selo selo--publicado">Publicado</span>
+          </div>
+          <h3 class="ativo__nome">LP da Comunidade</h3>
+          <p class="ativo__desc">Futuro Com Sabina, a comunidade gratuita. O cadastro está em pré-visualização.</p>
+          <span class="ativo__ir">Abrir <span aria-hidden="true">→</span></span>
+        </a>
+
+        <a class="ativo" href="2-motor-de-crescimento/vendas/funil-curso-low-ticket/index.html">
+          <div class="ativo__top">
+            <span class="ativo__tag">Curso</span>
+            <span class="selo selo--publicado">Publicado</span>
+          </div>
+          <h3 class="ativo__nome">Funil do Curso</h3>
+          <p class="ativo__desc">O Mapa das Convergências, o curso low-ticket. O checkout está em pré-visualização.</p>
+          <span class="ativo__ir">Abrir <span aria-hidden="true">→</span></span>
+        </a>
+
+        <a class="ativo" href="3-produto-escalavel/design-plataforma/index.html">
+          <div class="ativo__top">
+            <span class="ativo__tag">Área de membros</span>
+            <span class="selo selo--rascunho">Rascunho</span>
+          </div>
+          <h3 class="ativo__nome">Protótipo da Plataforma</h3>
+          <p class="ativo__desc">Como fica a área de membros por dentro — capas, trilha e a aula. Ainda em construção.</p>
+          <span class="ativo__ir">Abrir <span aria-hidden="true">→</span></span>
+        </a>
+
+      </div>
+    </section>
+
+    <section class="grupo reveal">
+      <h2 class="grupo__titulo">Telas de confirmação</h2>
+      <p class="grupo__nota">Normalmente só aparecem depois do cadastro — como o envio está desativado, abrimos elas direto para você validar o "obrigado".</p>
+      <div class="grade">
+
+        <a class="ativo" href="2-motor-de-crescimento/marketing/lp-comunidade-gratuita/obrigado.html">
+          <div class="ativo__top">
+            <span class="ativo__tag">Comunidade</span>
+            <span class="selo selo--interno">Pós-cadastro</span>
+          </div>
+          <h3 class="ativo__nome">Obrigado — Comunidade</h3>
+          <p class="ativo__desc">A tela que a pessoa vê ao entrar na comunidade gratuita.</p>
+          <span class="ativo__ir">Abrir <span aria-hidden="true">→</span></span>
+        </a>
+
+        <a class="ativo" href="2-motor-de-crescimento/vendas/funil-curso-low-ticket/obrigado.html">
+          <div class="ativo__top">
+            <span class="ativo__tag">Curso</span>
+            <span class="selo selo--interno">Pós-cadastro</span>
+          </div>
+          <h3 class="ativo__nome">Obrigado — Curso</h3>
+          <p class="ativo__desc">A tela de confirmação após o cadastro no funil do curso.</p>
+          <span class="ativo__ir">Abrir <span aria-hidden="true">→</span></span>
+        </a>
+
+      </div>
+    </section>
+
+    <section class="grupo reveal">
+      <h2 class="grupo__titulo">Operação</h2>
+      <div class="grade">
+
+        <a class="ativo" href="4-gestao-de-resultados/painel/index.html">
+          <div class="ativo__top">
+            <span class="ativo__tag">Torre de controle</span>
+            <span class="selo selo--interno">Interno</span>
+          </div>
+          <h3 class="ativo__nome">Painel de Resultados</h3>
+          <p class="ativo__desc">Acompanhamento de leads e funis. Ferramenta interna: os dados ao vivo exigem o serviço rodando localmente, então aqui aparece sem conexão.</p>
+          <span class="ativo__ir">Abrir <span aria-hidden="true">→</span></span>
+        </a>
+
+      </div>
+    </section>
+
+    <footer class="rodape">
+      <span><b>Formulários e checkout desativados</b> nesta pré-visualização — nada é enviado.</span>
+      <span>Para o time de design: instruções de desenvolvimento no <b>README</b> do repositório.</span>
+    </footer>
+  </div>
+</body>
+
+</html>

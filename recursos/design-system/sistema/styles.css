@@ -1,0 +1,10 @@
+/* Sabina Deweik Design System — global stylesheet entry point.
+   Keep this file as @import lines only; the compiler ships everything
+   this reaches (tokens + @font-face) to consuming projects. */
+
+@import "tokens/colors.css";
+@import "tokens/fonts.css";
+@import "tokens/typography.css";
+@import "tokens/spacing.css";
+@import "tokens/effects.css";
+@import "tokens/base.css";

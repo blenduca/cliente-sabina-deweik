@@ -1,0 +1,95 @@
+/* ==========================================================================
+   COLOR TOKENS — Sabina Deweik Design System
+   Paleta OFICIAL da marca (guia enviado pela Sabina): terrosa/sofisticada —
+   âmbar, verde, terracota e azul acinzentado + gradiente-assinatura, sobre creme.
+   Substitui a paleta "POP" saturada (que vinha 1:1 de uma LP de campanha).
+   Light mode only. Os nomes antigos --pop-* seguem como ALIAS da paleta da marca
+   (compatibilidade com componentes que os referenciam direto).
+   ========================================================================== */
+
+:root {
+  /* ---- Paleta da marca (guia oficial) ---- */
+  --marca-ambar: #E9974E;        /* laranja/âmbar — calor, energia, "futuro que acolhe" */
+  --marca-verde: #50704B;        /* verde terroso — humanista, "digerir o futuro" */
+  --marca-terracota: #D4866F;    /* terracota/coral — calor editorial */
+  --marca-azul: #ADC4CA;         /* azul acinzentado — leitura/análise, calma */
+
+  /* inks legíveis sobre creme (para texto/links/labels) */
+  --marca-ambar-ink: #B26A24;
+  --marca-verde-ink: #3A5236;
+  --marca-terracota-ink: #B0573D;
+  --marca-azul-ink: #4F6E76;
+
+  /* neutros */
+  --marca-preto: #0D0D0D;
+  --marca-branco: #FAFAFA;
+  --marca-creme: #F7F2EC;
+
+  /* gradiente-assinatura (âmbar → terracota → verde → azul) */
+  --gradient-assinatura: linear-gradient(160deg, #ECAA4C 0%, #D6886D 38%, #6C8972 68%, #99B5B6 100%);
+
+  /* ---- ALIAS de compatibilidade: nomes antigos --pop-* → paleta da marca ---- */
+  --pop-verde: var(--marca-verde);
+  --pop-verde-ink: var(--marca-verde-ink);
+  --pop-rosa: var(--marca-terracota);        /* "rosa" pop → terracota */
+  --pop-laranja: var(--marca-ambar);         /* "laranja" pop → âmbar */
+  --pop-laranja-ink: var(--marca-ambar-ink);
+  --pop-azul: var(--marca-azul);
+  --pop-azul-ink: var(--marca-azul-ink);
+  --pop-amarelo: var(--marca-ambar);         /* accent pop → âmbar */
+  --pop-amarelo-ink: var(--marca-ambar-ink);
+  --pop-preto: var(--marca-preto);
+  --pop-branco: var(--marca-branco);
+  --pop-creme: var(--marca-creme);
+
+  /* ======================================================================
+     SEMANTIC — LIGHT (único modo)
+     ====================================================================== */
+  --surface-bg: var(--marca-creme);
+  --surface-raised: var(--marca-branco);
+  --surface-raised-alt: #F0E9DF;
+  --surface-raised-hover: #F2ECE2;
+  --surface-card: #FFFFFF;
+  --surface-inset: #FFFFFF;
+  --surface-overlay: rgba(247, 242, 236, 0.9);
+
+  --text-primary: var(--marca-preto);
+  --text-muted: rgba(13, 13, 13, 0.72);
+  --text-subtle: rgba(13, 13, 13, 0.5);
+  --text-faint: rgba(13, 13, 13, 0.3);
+  --text-on-accent: var(--marca-preto);
+  --text-placeholder: rgba(13, 13, 13, 0.4);
+
+  /* accent = âmbar (destaque quente / preenchimento primário / CTA) */
+  --accent: var(--marca-ambar);
+  --accent-strong: #DE8636;
+  --accent-ink: var(--marca-ambar-ink);
+  --accent-muted: rgba(233, 151, 78, 0.22);
+  --accent-subtle: rgba(233, 151, 78, 0.12);
+  --accent-glow: rgba(233, 151, 78, 0.45);
+
+  --brand-primary: var(--marca-verde);       /* bloco de marca / hero */
+  --brand-secondary: var(--marca-terracota); /* apoio quente */
+  --brand-tertiary: var(--marca-azul);       /* apoio frio */
+
+  /* status (na paleta da marca) */
+  --success: var(--marca-verde-ink);
+  --success-bg: rgba(80, 112, 75, 0.14);
+  --info: var(--marca-azul-ink);
+  --info-bg: rgba(173, 196, 202, 0.28);
+  --warning: var(--marca-ambar-ink);
+  --warning-bg: rgba(233, 151, 78, 0.18);
+  --danger: var(--marca-terracota-ink);
+  --danger-bg: rgba(212, 134, 111, 0.16);
+
+  --border-default: rgba(13, 13, 13, 0.14);
+  --border-strong: rgba(13, 13, 13, 0.28);
+  --border-interactive: var(--marca-preto);
+  --border-accent: var(--marca-preto);
+
+  --link: var(--marca-ambar-ink);
+  --link-hover: var(--marca-preto);
+
+  --selection-bg: var(--marca-ambar);
+  --selection-fg: var(--marca-preto);
+}

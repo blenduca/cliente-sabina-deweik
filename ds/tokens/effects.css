@@ -1,0 +1,50 @@
+/* GENERATED por recursos/design-system/scripts/sync-tokens.mjs — NÃO EDITAR À MÃO.
+   Fonte: recursos/design-system/sistema/tokens/effects.css
+   Para mudar: edite a fonte e rode `npm run sync:tokens`. */
+
+/* ==========================================================================
+   EFFECTS TOKENS — radii, shadows, easing (POP identity).
+   POP is flat by nature: no film-grain, no ambient shadows on static blocks.
+   Shadows here exist only for elevated UI (overlays, menus) + focus rings.
+   ========================================================================== */
+
+:root {
+  /* ---- Radii ---- */
+  --radius-none: 0;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;      /* cards, inputs */
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 100px;   /* buttons, badges, chips (pop signature) */
+  --radius-circle: 50%;
+
+  --control-radius: 10px; /* inputs/select/textarea */
+  --button-radius: var(--radius-pill);
+
+  /* ---- Easing (smooth in/out, never overshoots) ---- */
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* @kind other */
+  --ease-cinematic: cubic-bezier(0.19, 1, 0.22, 1); /* @kind other */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+
+  /* ---- Durations ---- */
+  --duration-fast: 0.15s; /* @kind other */
+  --duration-base: 0.3s; /* @kind other */
+  --duration-slow: 0.6s; /* @kind other */
+  --duration-cinematic: 1.4s; /* @kind other */
+
+  /* ---- Shadows / glow (elevated UI + interaction feedback only) ---- */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px rgba(13, 13, 13, 0.08);
+  --shadow-md: 0 8px 24px rgba(13, 13, 13, 0.1);
+  --shadow-lg: 0 20px 48px rgba(13, 13, 13, 0.14);
+  --shadow-cta: 0 10px 24px var(--accent-muted);
+  --shadow-glow-accent: 0 0 40px var(--accent-glow);
+  --shadow-focus: var(--focus-ring);
+
+  /* ---- Borders ---- */
+  --border-width-hairline: 1px;
+  --border-width-control: 1.5px;
+  --border-width-bold: 2px;      /* cards/inputs */
+  --border-width-accent: 4px;    /* section top-border accent stripe */
+}

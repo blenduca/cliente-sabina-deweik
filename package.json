@@ -1,0 +1,10 @@
+{
+  "name": "cliente-sabina-deweik",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Governança do repo da Sabina. Não é build de ativo — cada ativo web publica a partir da própria pasta.",
+  "scripts": {
+    "sync:tokens": "node recursos/design-system/scripts/sync-tokens.mjs",
+    "capas": "node 3-produto-escalavel/design-plataforma/scripts/gerar-capas.mjs"
+  }
+}

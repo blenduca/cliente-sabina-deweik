@@ -1,0 +1,38 @@
+/* ==========================================================================
+   FONT FACES — self-hosted, downloaded from the exact Google Fonts families
+   referenced by lp-me-leva-pro-futuro.html. Latin subset only (covers pt-BR
+   diacritics: ã õ ç é í ó ú â ê ô à — all within U+0000-00FF).
+   Space Grotesk ships as a variable font (single file, weight range 300–700).
+   ========================================================================== */
+
+@font-face {
+  font-family: "DM Serif Display";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/DMSerifDisplay-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "DM Serif Display";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/DMSerifDisplay-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("../assets/fonts/SpaceGrotesk-Variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Bebas Neue";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../assets/fonts/BebasNeue-Regular.woff2") format("woff2");
+}

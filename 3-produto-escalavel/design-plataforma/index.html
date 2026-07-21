@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meu percurso — O Mapa das Convergências</title>
+  <meta name="description" content="Área de membros do curso O Mapa das Convergências, de Sabina Deweik.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#F7F2EC">
+
+  <link rel="icon" type="image/svg+xml" href="imagens/capas/capa-comece-por-aqui.svg">
+
+  <!-- Fontes self-hosted (ds/ é gerado por `npm run sync:tokens`). Nada sai para o Google. -->
+  <link rel="preload" href="ds/fonts/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="ds/fonts/SpaceGrotesk-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="ds/tokens/fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- ═══════════ Barra lateral ═══════════ -->
+    <aside class="lateral">
+      <a class="marca" href="index.html">Sabina<br><em>Deweik</em></a>
+
+      <nav aria-label="Seções da plataforma">
+        <ul class="menu">
+          <li>
+            <a href="index.html" aria-current="page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M3 7l6-3 6 3 6-3v13l-6 3-6-3-6 3z" /><path d="M9 4v13M15 7v13" />
+              </svg>
+              Meu percurso
+            </a>
+          </li>
+          <li>
+            <a href="aula.html">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M4 5h7a3 3 0 0 1 3 3v11a2 2 0 0 0-2-2H4z" /><path d="M20 5h-3a3 3 0 0 0-3 3v11a2 2 0 0 1 2-2h4z" />
+              </svg>
+              Continuar assistindo
+            </a>
+          </li>
+          <li>
+            <a href="#comunidade">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <circle cx="9" cy="8" r="3" /><path d="M3 20a6 6 0 0 1 12 0" /><path d="M16 6a3 3 0 0 1 0 6M18 20a6 6 0 0 0-3-5" />
+              </svg>
+              Comunidade
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <p class="aluno">
+        <span class="aluno__inicial" aria-hidden="true">R</span>
+        Ricardo Werlang<br>Acesso até 30/05/27
+      </p>
+    </aside>
+
+    <!-- ═══════════ Conteúdo ═══════════ -->
+    <main class="conteudo">
+      <h1 class="sr-only">Meu percurso no curso O Mapa das Convergências</h1>
+
+      <!-- Retomada: o hero de uma área de membros não vende, reorienta.
+           Diz onde a pessoa parou e devolve ela ao vídeo em um clique. -->
+      <section class="faixa">
+        <div class="retomada">
+          <picture>
+            <source srcset="imagens/fotos/sabina-palco-sxsw.avif" type="image/avif">
+            <img class="retomada__foto" src="imagens/fotos/sabina-palco-sxsw.webp"
+              alt="" aria-hidden="true" width="1900" height="1266" fetchpriority="high">
+          </picture>
+          <img class="retomada__tracos" src="imagens/banners/banner-vitrine-tracos.svg"
+            alt="" aria-hidden="true" width="2100" height="900">
+
+          <div class="retomada__corpo">
+            <p class="rotulo">Retomar</p>
+            <h2 class="retomada__titulo">Modernidade gasosa e o mapa das convergências</h2>
+            <p class="retomada__meta">Módulo 01 · aula 3 de 12 · faltam 14 min</p>
+            <a class="botao" href="aula.html">
+              Continuar aula <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- O percurso. Quatro cursos que são uma sequência real, então caminho
+           numerado — não carrossel. A ordem carrega informação. -->
+      <section class="faixa percurso" aria-labelledby="tit-percurso">
+        <p class="rotulo">Seu percurso</p>
+        <h2 class="sr-only" id="tit-percurso">As quatro etapas do curso</h2>
+
+        <ol class="trilha" style="--percorrido: 22%">
+
+          <li class="estacao estacao--feita">
+            <span class="estacao__num" aria-hidden="true">01</span>
+            <a class="cartao" href="aula.html">
+              <img class="cartao__capa" src="imagens/capas/capa-comece-por-aqui.svg" alt=""
+                width="800" height="1200">
+              <span class="cartao__corpo">
+                <span class="cartao__titulo">Comece por aqui</span>
+                <span class="cartao__sub">1 aula</span>
+                <span class="estado estado--feita">
+                  <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5" /></svg>
+                  Concluído
+                </span>
+              </span>
+              <span class="cartao__acao">
+                <span class="cartao__ver">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                  Rever conteúdo
+                </span>
+                <span class="cartao__acesso">Acesso até 30/05/27</span>
+                <span class="cartao__barra"><span style="width: 100%"></span></span>
+              </span>
+            </a>
+          </li>
+
+          <li class="estacao estacao--agora">
+            <span class="estacao__num" aria-hidden="true">02</span>
+            <a class="cartao" href="aula.html">
+              <img class="cartao__capa" src="imagens/capas/capa-modulo-01.svg" alt=""
+                width="800" height="1200" loading="lazy">
+              <span class="cartao__corpo">
+                <span class="cartao__titulo">2026: o ano das convergências</span>
+                <span class="cartao__sub">Módulo 01 · 12 aulas</span>
+                <span class="estado estado--agora">Você está aqui · 2 de 12</span>
+              </span>
+              <span class="cartao__acao">
+                <span class="cartao__ver">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                  Continuar
+                </span>
+                <span class="cartao__acesso">Acesso até 30/05/27</span>
+                <span class="cartao__barra"><span style="width: 17%"></span></span>
+              </span>
+            </a>
+          </li>
+
+          <li class="estacao">
+            <span class="estacao__num" aria-hidden="true">03</span>
+            <a class="cartao" href="aula.html">
+              <img class="cartao__capa" src="imagens/capas/capa-modulo-02.svg" alt=""
+                width="800" height="1200" loading="lazy">
+              <span class="cartao__corpo">
+                <span class="cartao__titulo">Futuro com Sabina: SXSW 2026</span>
+                <span class="cartao__sub">Módulo 02 · 13 aulas</span>
+                <span class="estado">A seguir</span>
+              </span>
+              <span class="cartao__acao">
+                <span class="cartao__ver">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                  Ver conteúdo
+                </span>
+                <span class="cartao__acesso">Acesso até 30/05/27</span>
+                <span class="cartao__barra"><span style="width: 0%"></span></span>
+              </span>
+            </a>
+          </li>
+
+          <li class="estacao">
+            <span class="estacao__num" aria-hidden="true">04</span>
+            <a class="cartao" href="aula.html">
+              <img class="cartao__capa" src="imagens/capas/capa-mapa-convergencias.svg" alt=""
+                width="800" height="1200" loading="lazy">
+              <span class="cartao__corpo">
+                <span class="cartao__titulo">Mapa de Convergências 2026</span>
+                <span class="cartao__sub">A ferramenta · 17 nomes</span>
+                <span class="estado">A seguir</span>
+              </span>
+              <span class="cartao__acao">
+                <span class="cartao__ver">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                  Ver conteúdo
+                </span>
+                <span class="cartao__acesso">Acesso até 30/05/27</span>
+                <span class="cartao__barra"><span style="width: 0%"></span></span>
+              </span>
+            </a>
+          </li>
+
+        </ol>
+      </section>
+
+      <!-- ═══════════ Comunidade ABERTA ═══════════
+           Atenção à distinção que o repo trata como regra: são DUAS comunidades.
+           A privada (exclusiva de aluno) vive dentro da plataforma e já tem porta
+           própria no menu lateral — não precisa de banner. Este bloco é a ABERTA,
+           "Futuro Com Sabina", gratuita, WhatsApp + newsletter. Mesmo padrão do
+           banner do linktree, no formato horizontal da plataforma.
+           `funil-curso-low-ticket/README.md`: "Não vender a aberta como exclusiva." -->
+      <section class="faixa" id="comunidade" aria-labelledby="tit-comunidade">
+        <!-- Vai direto para o grupo, sem passar por cadastro: aqui dentro a pessoa
+             JÁ é aluna e já deu os dados na compra — pedir e-mail de novo seria
+             atrito à toa. Mesmo grupo que as duas páginas de obrigado usam.
+             (No linktree o destino é outro de propósito: lá o visitante é frio e
+             precisa passar pela captura.) -->
+        <a class="aberta" href="https://chat.whatsapp.com/LY7sn74TpERBJlizq6IPkT?mode=gi_t"
+          target="_blank" rel="noopener">
+          <picture>
+            <source srcset="imagens/fotos/sabina-plateia.avif" type="image/avif">
+            <img class="aberta__foto" src="imagens/fotos/sabina-plateia.webp"
+              alt="" aria-hidden="true" width="1227" height="800" loading="lazy">
+          </picture>
+
+          <span class="aberta__corpo">
+            <span class="aberta__tag">Gratuito</span>
+            <span class="rotulo">Comunidade aberta · grupo de WhatsApp</span>
+            <span class="aberta__titulo" id="tit-comunidade">Futuro <em>Com Sabina</em></span>
+            <!-- O rótulo do botão diz o que o clique faz. Como o destino agora é o
+                 convite do grupo, "Entrar na comunidade" seria vago: a pessoa vai
+                 cair no WhatsApp e precisa saber disso antes de clicar. -->
+            <span class="aberta__texto">Sinais e leituras em tempo real, e os bastidores dos eventos
+              que a Sabina acompanha por dentro.</span>
+            <span class="aberta__cta">Entrar no grupo do WhatsApp <span aria-hidden="true">→</span></span>
+            <span class="aberta__nota">Entrada imediata · sem lista de espera</span>
+          </span>
+        </a>
+      </section>
+
+    </main>
+  </div>
+</body>
+
+</html>
