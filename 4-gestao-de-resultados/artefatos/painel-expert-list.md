@@ -3,7 +3,6 @@ titulo: Painel — acompanhamento da Expert List
 area: 4-gestao-de-resultados
 status: rascunho
 entradas:
-  - 2-motor-de-crescimento/marketing/artefatos/expert-list-sabina-deweik.md
   - plataforma/db/migrations/0005_expert_list.sql
   - plataforma/docs/SPEC.md
 skill: null
@@ -71,8 +70,8 @@ ultima_interacao · proxima_acao · data_proxima_acao · origem`
 - **Registrar interação:** botão por linha → tipo, canal, data, descrição. Alimenta o F do RFV.
 - **Lançar receita B2B:** `pz.lancar_receita_manual()` — palestra e workshop não passam por checkout,
   e sem esse lançamento os melhores clientes aparecem como V=1.
-- **Exportar CSV:** exporta exatamente o filtro aplicado, no schema de
-  `expert-list-sabina-deweik.csv`. Cada export é registrado (LGPD).
+- **Exportar CSV:** baixa exatamente o filtro aplicado (download no navegador), no schema da view
+  `v_expert_list`. Cada export deve ser registrado (LGPD).
 
 Leads com `spam_score >= 50` ficam ocultos por padrão, com alternador.
 
@@ -137,7 +136,6 @@ ferramenta.
 | Auth do painel (magic link) | ⏳ fase 2 |
 | Receita B2B lançada à mão | ⏳ precisa da tela |
 
-Enquanto o banco não estiver no ar, a operação é a planilha
-[`expert-list-sabina-deweik.csv`](../../2-motor-de-crescimento/marketing/artefatos/expert-list-sabina-deweik.csv),
-com as fórmulas do artefato. **Não operar os dois ao mesmo tempo** — foi assim que a planilha
-anterior se perdeu.
+A fonte da Expert List é o Postgres (view `v_expert_list`), que calcula RFV, segmento e temperatura na
+leitura. No test-bed local, o serviço de ingestão (`plataforma/ingest`) grava e serve os dados; em
+produção, o mesmo banco no Supabase. Não há mais planilha CSV paralela.

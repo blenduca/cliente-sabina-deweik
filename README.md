@@ -64,6 +64,5 @@ Isso reescreve todos os `ds/` (inclusive o da raiz, usado pelo hub). **Nunca edi
 
 ## Não versionar
 
-- **Base de leads** (`expert-list-*.csv`) — dado pessoal, fica fora do repo (já no `.gitignore`).
 - **Segredos** (tokens, chaves) — não entram no repositório.
 - Conteúdo pesado (vídeo, PDF, PSD) — fica no Drive/CMS; o repo guarda só índices e links.

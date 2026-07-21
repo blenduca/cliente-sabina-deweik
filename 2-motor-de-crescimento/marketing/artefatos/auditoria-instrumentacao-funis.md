@@ -5,7 +5,6 @@ status: em-validacao
 entradas:
   - 2-motor-de-crescimento/vendas/funil-curso-low-ticket/script.js
   - 2-motor-de-crescimento/marketing/lp-comunidade-gratuita/index.html
-  - 2-motor-de-crescimento/marketing/artefatos/expert-list-sabina-deweik.md
   - plataforma/docs/SPEC.md
   - plataforma/db/migrations/0005_expert_list.sql
 skill: null

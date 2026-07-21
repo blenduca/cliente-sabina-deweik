@@ -19,5 +19,3 @@ node_modules/
 .claude/
 CLAUDE.md
 ia/
-# Base de leads (dado pessoal) — fica fora do repo.
-expert-list-*.csv
