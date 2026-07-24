@@ -8,10 +8,11 @@ sticky e modal, e na `obrigado.html`. H1 fechado como `O futuro não é singular
 O resto do projeto `atualizar-pagina-comunidade` segue gated na revisão de copy da Sabina + agência Kiro.
 
 ## Próximo passo
-Decidir se o valor de rastreio **`origem: 'LP Comunidade Futuro Com Sabina'`** (`index.html:1889`, contrato
-de payload com o n8n/plataforma) também vira plural — deixado singular de propósito para não quebrar
-continuidade de analytics/roteamento. Em paralelo, o buraco maior do cliente segue sendo `/map:triagem` +
-pilares 1 e 3 vazios. Publicar a LP (Pages) quando a Sabina/Kiro fecharem copy + identidade.
+Há **2 commits locais não enviados** (`0404d75` stake+H1, `9db3ad2` renomeação) — decidir se dá `push`
+agora ou espera fechar o resto com a Kiro. Antes, resolver se o valor de rastreio
+**`origem: 'LP Comunidade Futuro Com Sabina'`** (`index.html:1889`, contrato de payload com o n8n/plataforma)
+também vira plural — deixado singular de propósito para não quebrar continuidade de analytics/roteamento.
+Em paralelo, o buraco maior do cliente segue sendo `/map:triagem` + pilares 1 e 3 vazios.
 
 ## Threads abertas / decisões pendentes
 - **Copy do H1 da hero:** decidir entre a atual (`O futuro não é singular. É plural.`, frase de assinatura
