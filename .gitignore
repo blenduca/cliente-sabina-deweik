@@ -19,3 +19,19 @@ node_modules/
 .claude/
 CLAUDE.md
 ia/
+# raw/ INTEIRO fica local — repo PÚBLICO (Pages). O bronze do operador (transcrições,
+# WhatsApp, proveniência) carrega dado pessoal/operacional e não se publica. O durável
+# é o SILVER curado (recursos/base-de-conhecimento). Re-puxar é idempotente. Só a
+# estrutura de pastas (.gitkeep) fica versionada.
+raw/*
+raw/**
+!raw/**/
+!raw/**/.gitkeep
+# Planos de ação/atas (acompanhamento) e projetos: material INTERNO de operador — tarefas do
+# time + estratégia do cliente. Repo PÚBLICO, ficam locais (padrao-dados-pessoais). O painel de
+# artefatos (4-gestao/artefatos/, portal) continua versionado. Só .gitkeep versiona.
+4-gestao-de-resultados/acompanhamento/*
+projetos/*
+projetos/**
+!projetos/**/
+!**/.gitkeep
