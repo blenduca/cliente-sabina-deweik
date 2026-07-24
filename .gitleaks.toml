@@ -1,5 +1,5 @@
-# gitleaks — estende as regras padrão e ignora placeholders óbvios.
-title = "gitleaks"
+# gitleaks — config da PotenZIA. Estende as regras padrão e ignora placeholders óbvios.
+title = "PotenZIA gitleaks"
 
 [extend]
 useDefault = true
@@ -9,6 +9,11 @@ description = "Falsos positivos conhecidos (placeholders, não segredos reais)"
 regexes = [
   '''(?i)(EXEMPLO|PLACEHOLDER|TODO|SEU[_-]?TOKEN|CHANGE[_-]?ME)''',
   '''<[^>]+>''',
+  # CPFs-manequim de bateria de QA. A regra generic-api-key casa por entropia com
+  # `"cpf_cliente":"012.345.678-90"` e barra o commit. Só os valores canônicos de
+  # teste entram aqui — CPF real continua sendo detectado (e não pode entrar no repo,
+  # ver .claude/rules/seguranca/padrao-dados-pessoais.md).
+  '''\b(012\.345\.678-90|123\.456\.789-09|000\.000\.000-00|111\.111\.111-11)\b''',
 ]
 paths = [
   '''\.gitleaks\.toml$''',
