@@ -2,21 +2,22 @@
 _atualizado: 2026-07-23 por /encerrar_
 
 ## Onde paramos
-Edições da **LP da comunidade** ("Futuro Com Sabina") concluídas, verificadas com `qualidade-web`
-(render OK, 0 erros de console, SEO/perf/a11y OK) e **commitadas** junto deste ESTADO. Copy do H1 fechada
-como `O futuro não é singular. É plural.` (frase da Sabina). O resto do projeto `atualizar-pagina-comunidade`
-segue gated na revisão de copy da Sabina + agência Kiro.
+Edições da **LP da comunidade** concluídas e verificadas com `qualidade-web`. A marca foi **renomeada para
+"Futuros Com Sabina"** (plural) em todo o visível — marquee, label da hero, `<title>`, og:title, footer,
+sticky e modal, e na `obrigado.html`. H1 fechado como `O futuro não é singular. É plural.` (frase da Sabina).
+O resto do projeto `atualizar-pagina-comunidade` segue gated na revisão de copy da Sabina + agência Kiro.
 
 ## Próximo passo
-Decidir a **pendência do nome da marca**: manter "Futuro com Sabina" ou pluralizar para "Futuros com Sabina"
-no marquee/label/`<title>`/meta (hoje ainda singular, de propósito). Em paralelo, o buraco maior do cliente
-continua sendo `/map:triagem` + pilares 1 e 3 vazios. Publicar a LP (Pages) quando a Sabina/Kiro fecharem.
+Decidir se o valor de rastreio **`origem: 'LP Comunidade Futuro Com Sabina'`** (`index.html:1889`, contrato
+de payload com o n8n/plataforma) também vira plural — deixado singular de propósito para não quebrar
+continuidade de analytics/roteamento. Em paralelo, o buraco maior do cliente segue sendo `/map:triagem` +
+pilares 1 e 3 vazios. Publicar a LP (Pages) quando a Sabina/Kiro fecharem copy + identidade.
 
 ## Threads abertas / decisões pendentes
 - **Copy do H1 da hero:** decidir entre a atual (`O futuro não é singular. É plural.`, frase de assinatura
   da Sabina) e as variações B (cadência literal) / C (substantivo "futuros" em destaque).
-- **Nome da comunidade no plural?** Ricardo disse "futuros com Sabina" (imagem); página ainda singular em
-  marquee, label da hero, `<title>` e meta. Renomear é decisão de marca — não tocada, ecoa na identidade da Kiro.
+- **Nome da comunidade → plural: FEITO** ("Futuros Com Sabina" em todo o visível). Resta só o valor de
+  `origem` no payload (`:1889`) e o README, deixados no singular — decisão de contrato, não de copy.
 - **`plano-de-execucao.md` tem seção "A confirmar"**: reformular copy de abertura e enxugar "Dois canais"
   (só WhatsApp?) — cortes ambíguos da transcrição, aguardam validação na tela com a Sabina.
 - Copy da página inteira: a Sabina revisa tudo e reporta à Kiro — a lista atual não é exaustiva.
@@ -24,6 +25,8 @@ continua sendo `/map:triagem` + pilares 1 e 3 vazios. Publicar a LP (Pages) quan
 - Artefatos de marketing em validação; repo público (cuidado com `raw/` e dados pessoais).
 
 ## Realizado / entregas
+- 2026-07-23 — LP comunidade: marca renomeada para **"Futuros Com Sabina"** (plural) em todo o visível
+  (`index.html` + `obrigado.html`); `origem` de payload mantido singular. Verificado no navegador.
 - 2026-07-23 — LP comunidade: removido o bloco `section.stake` ("A volta do humano no centro?", 3 cards)
   + CSS órfão; H1 da hero reescrito para `O futuro não é singular. É plural.` (frase da Sabina). Verificado
   com `qualidade-web` (0 erros de console) e **commitado**.
@@ -36,7 +39,7 @@ continua sendo `/map:triagem` + pilares 1 e 3 vazios. Publicar a LP (Pages) quan
 - 2026-07-23 — Transcrição real "MENTORIA AE | SABINA" puxada para `raw/transcricoes/` (teste ao vivo da skill `puxar-transcricoes`).
 
 ## Sessões recentes
-- 2026-07-23 — LP comunidade: extraída da transcrição a lista completa de mudanças, corrigido o plano,
-  aplicadas 2 edições no `index.html` (remoção do stake + H1 no plural), rodado `qualidade-web` e commitado.
-  Pendente: decisão do nome da marca (plural?).
+- 2026-07-23 — LP comunidade: extraída a lista de mudanças da transcrição, corrigido o plano, removido o
+  stake, H1 no plural, `qualidade-web`, e a marca renomeada para "Futuros Com Sabina". Dois commits.
+  Pendente: valor de `origem` no payload (plural?).
 - 2026-07-23 — `/foco` no alvo; criado este ESTADO.md inicial a partir do repo (não havia bitácora).
