@@ -119,9 +119,9 @@
   <header class="ty-hero">
     <div class="container container--narrow">
       <img class="ty-hero__mark" src="img/asterisco.svg" alt="" width="54" height="54" aria-hidden="true" />
-      <span class="label label--on-dark" style="justify-content:center;">Compra confirmada</span>
+      <span class="label label--on-dark" style="justify-content:center;" id="tyEyebrow">Compra confirmada</span>
       <h1>Pronto.<br>O <em>mapa</em> é seu.</h1>
-      <p>
+      <p id="tyIntro">
         Seu acesso já está ativo. O login foi para o e-mail da compra — se não chegar em alguns minutos, dá uma olhada
         no spam.
       </p>
@@ -129,7 +129,7 @@
         rel="noopener">
         Acessar a plataforma <span aria-hidden="true">→</span>
       </a>
-      <p class="ty-hero__note">Você tem 6 meses de acesso.</p>
+      <p class="ty-hero__note" id="tyNota">Você tem 6 meses de acesso.</p>
     </div>
   </header>
 
@@ -137,8 +137,8 @@
   <section>
     <div class="container container--narrow">
       <span class="label">Como acessar</span>
-      <h2>Três passos e você está dentro.</h2>
-      <ol class="steps">
+      <h2 id="tyPassosTitulo">Três passos e você está dentro.</h2>
+      <ol class="steps" id="tyPassos">
         <li>Clique no botão acima e faça login com <strong>o mesmo e-mail que você usou na compra</strong>.</li>
         <li>Abra <strong>O Mapa das Convergências</strong> na sua lista de cursos.</li>
         <li>Comece por <strong>“Comece por Aqui”</strong> — são poucos minutos e te poupam confusão depois.</li>
@@ -150,7 +150,7 @@
   <section class="tool">
     <div class="container container--narrow">
       <span class="label">Como aproveitar melhor</span>
-      <h2>A diferença entre comprar<br>e realmente usar.</h2>
+      <h2 id="tyDicasTitulo">A diferença entre comprar<br>e realmente usar.</h2>
       <ul class="tips">
         <li>
           <strong>Baixe o Mapa antes de assistir.</strong>
@@ -166,7 +166,8 @@
         </li>
         <li>
           <strong>Você pode voltar quantas vezes quiser.</strong>
-          São 6 meses de acesso — e reler depois de umas semanas costuma render mais que a primeira passada.
+          <span id="tyDicaPrazo">São 6 meses de acesso — e reler depois de umas semanas costuma render mais que a
+            primeira passada.</span>
         </li>
       </ul>
     </div>
@@ -211,11 +212,59 @@
   <script>
     document.documentElement.classList.remove('no-js');
 
+    /* ── Dois públicos, uma página ────────────────────────────────────────────
+       Esta página atende quem COMPROU (redirect da Kiwify) e quem GANHOU acesso
+       pela gratuidade.html (convidados dos 2 webinars). O que muda entre os dois
+       é só o topo e os passos: dizer "compra confirmada" a quem ganhou um
+       presente, e mandá-lo fazer login numa conta que ainda não existe, seria
+       mentira em dois lugares.
+
+       `?origem=gratuidade` é contrato com gratuidade.js — mudar de um lado
+       quebra o outro em silêncio.
+
+       O cadastro na Curseduca é automático — validado em 27/07, ~9 s do envio até
+       o e-mail chegar. Por isso o texto promete "em instantes" e não um prazo.
+
+       ⚠️ O CTA "Acessar a plataforma" continua ESCONDIDO de propósito: no instante
+       em que esta página abre, a pessoa ainda não definiu a senha, então o botão
+       levaria a um login que ela não consegue fazer. Só faz sentido reexibi-lo se
+       um dia a conta passar a nascer com acesso. */
+    var ehGratuidade = new URLSearchParams(location.search).get('origem') === 'gratuidade';
+
+    if (ehGratuidade) {
+      document.title = 'Acesso confirmado — O Mapa das Convergências';
+      document.getElementById('tyEyebrow').textContent = 'Acesso confirmado';
+      document.getElementById('tyIntro').textContent =
+        'Recebi sua confirmação e o seu depoimento — obrigada. Em instantes chega no seu e-mail o link ' +
+        'para definir a senha e entrar na plataforma. Se não chegar em alguns minutos, dá uma olhada no spam.';
+
+      /* O CTA leva a um login que ainda não funciona para esta pessoa. Some até
+         o acesso existir de verdade. */
+      document.getElementById('ctaPlataforma').hidden = true;
+      document.getElementById('tyNota').hidden = true;
+
+      /* Duas frases da página pressupõem compra. Quem ganhou não comprou, e o
+         prazo de 6 meses é da oferta paga — não se afirma prazo que não foi combinado. */
+      document.getElementById('tyDicasTitulo').innerHTML = 'A diferença entre receber<br>e realmente usar.';
+      document.getElementById('tyDicaPrazo').textContent =
+        'Reler depois de umas semanas costuma render mais que a primeira passada.';
+
+      document.getElementById('tyPassosTitulo').textContent = 'O que acontece agora.';
+      document.getElementById('tyPassos').innerHTML =
+        '<li>Você recebe um e-mail com o link para <strong>definir a sua senha</strong>. É ele que abre a plataforma.</li>' +
+        '<li>Lá dentro, abra <strong>O Mapa das Convergências</strong> e comece por <strong>“Comece por Aqui”</strong>.</li>' +
+        '<li>Os <strong>dois webinars de 2026</strong> estão na mesma biblioteca — dá para revisitá-los quando quiser.</li>';
+    }
+
     /* Conversão acontece aqui, não no clique do CTA da página de vendas.
-       Quando houver GA4/Pixel, estes são os eventos que fecham o funil. */
+       Quando houver GA4/Pixel, estes são os eventos que fecham o funil.
+       Quem chega pela gratuidade não gerou receita: não dispara `purchase`. */
     (function () {
-      if (typeof window.gtag === 'function') {
+      if (typeof window.gtag === 'function' && !ehGratuidade) {
         window.gtag('event', 'purchase', { value: 197, currency: 'BRL', items: [{ item_name: 'O Mapa das Convergências' }] });
+      }
+      if (typeof window.gtag === 'function' && ehGratuidade) {
+        window.gtag('event', 'acesso_gratuito_confirmado');
       }
       const cta = document.getElementById('ctaPlataforma');
       if (cta) {

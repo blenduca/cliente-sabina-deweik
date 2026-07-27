@@ -7,6 +7,10 @@
    antes de qualquer envio de lead. */
 import './atribuicao.js';
 
+/* Endpoints e gates de ambiente vivem num módulo só (endpoints.js) — a regra da
+   instância proíbe declarar URL nova numa segunda cópia. */
+import { CHECKOUT_URL, LEAD_WEBHOOK, EM_VALIDACAO } from './endpoints.js';
+
 /* JS is running: drop the no-js fallback so reveal animations can play. */
 document.documentElement.classList.remove('no-js');
 
@@ -118,21 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
      ⚠️ O fluxo n8n não está versionado no repo. Este envio usa o mesmo
      webhook da comunidade com `tipo: "Checkout Curso"` — o fluxo precisa
-     rotear esse tipo, senão os leads do curso caem no fluxo da comunidade. */
-  const CHECKOUT_URL = 'https://pay.kiwify.com.br/82Bzgdr';
+     rotear esse tipo, senão os leads do curso caem no fluxo da comunidade.
 
-  /* Em produção o lead vai para o n8n. Rodando local, vai para o serviço de
-     ingestão (plataforma/ingest), que grava direto na Expert List — é assim
-     que dá para ver o ciclo inteiro fechar sem depender do n8n nem do banco. */
-  const EM_DESENVOLVIMENTO = ['localhost', '127.0.0.1'].includes(location.hostname);
-  const LEAD_WEBHOOK = EM_DESENVOLVIMENTO
-    ? 'http://localhost:8787/api/lead'
-    : 'https://automacao.bagents.cloud/webhook/a286c9fc-bfa8-468b-b44b-46c1256ceeb6';
-
-  /* Host de validação (GitHub Pages): página publicada só para o cliente aprovar
-     o design. Não registra lead nem redireciona para o checkout real da Kiwify —
-     mandar a Sabina para uma página de pagamento de verdade seria errado. */
-  const EM_VALIDACAO = location.hostname.endsWith('github.io');
+     CHECKOUT_URL, LEAD_WEBHOOK e EM_VALIDACAO vêm de `endpoints.js`. */
 
   const modal = document.getElementById('leadModal');
   const leadForm = document.getElementById('leadForm');

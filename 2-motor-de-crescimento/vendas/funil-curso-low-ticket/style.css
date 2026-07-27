@@ -1047,8 +1047,33 @@ section { padding: clamp(60px, 8vw, var(--section-pad-y)) 0; }
   border-color: var(--verde);
 }
 
+/* Textarea partilha o desenho do input — mesmo componente, altura diferente.
+   Usado hoje só pelo depoimento da gratuidade.html. */
+.lead-field textarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--text-primary);
+  background: #fff;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s var(--ease-smooth);
+  resize: vertical;
+  min-height: 120px;
+  display: block;
+}
+.lead-field textarea::placeholder { color: rgba(13, 13, 13, 0.38); }
+.lead-field textarea:focus-visible {
+  outline: 3px solid var(--ambar);
+  outline-offset: 2px;
+  border-color: var(--verde);
+}
+
 .lead-field__error { display: none; margin-top: 6px; font-size: 0.82rem; color: var(--terracota-ink); }
-.lead-field.has-error input { border-color: var(--terracota-ink); }
+.lead-field.has-error input,
+.lead-field.has-error textarea { border-color: var(--terracota-ink); }
 .lead-field.has-error .lead-field__error { display: block; }
 
 /* ── Honeypot ──────────────────────────────────────────────────────────────

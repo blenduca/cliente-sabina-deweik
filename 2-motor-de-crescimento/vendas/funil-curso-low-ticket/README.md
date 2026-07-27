@@ -111,9 +111,56 @@ silencioso de propósito. **A venda tem prioridade sobre o registro do lead.**
 plataforma), 3 passos de acesso, 4 dicas de aproveitamento e as duas comunidades (a privada fica na aba
 *Comunidade* da plataforma; a aberta tem o link do WhatsApp).
 
-**Build multipágina:** o Vite só empacota `index.html` por padrão. O `vite.config.js` declara as duas
+**Build multipágina:** o Vite só empacota `index.html` por padrão. O `vite.config.js` declara as três
 entradas — **sem ele a `obrigado.html` não entra no `dist/` e o comprador cai num 404 logo depois de
 pagar.** O `rewrites` catch-all do `vercel.json` foi removido pelo mesmo motivo (engolia a rota).
+
+### A página serve dois públicos
+
+Quem **comprou** (redirect da Kiwify) e quem **ganhou** acesso pela `gratuidade.html`. O que muda entre
+os dois é só o topo e os passos, trocados por JS quando a URL traz **`?origem=gratuidade`** — contrato
+com `gratuidade.js`, mudar de um lado quebra o outro em silêncio.
+
+Trocam: o rótulo, o parágrafo do hero, os 3 passos, o H2 das dicas ("a diferença entre **comprar**" vira
+"entre **receber**"), a menção aos 6 meses (prazo da oferta paga, não do presente) e o `purchase` do
+gtag, que não dispara para quem não gerou receita. O CTA "Acessar a plataforma" **some**: enquanto o
+cadastro é manual, ele levaria a um login que ainda não existe para essa pessoa.
+
+## Gratuidade: convidados dos 2 webinars
+
+`gratuidade.html` é uma **ação comercial deste funil**, não um funil novo — por isso mora aqui e reusa
+`style.css`, `atribuicao.js` e a `obrigado.html`. Público: quem participou dos dois webinars ao vivo de
+2026 e recebeu, por e-mail nominal, o convite para o acesso gratuito.
+
+```
+e-mail → /gratuidade → POST síncrono → n8n confere a lista → obrigado.html?origem=gratuidade
+```
+
+- **Endpoint:** `sabina-gratuidade` (fluxo `Sabina | Turma | Gratuidade`, `ia/n8n/`). Declarado em
+  `endpoints.js` junto dos demais — a regra da instância proíbe URL nova numa segunda cópia.
+- **Ao contrário do checkout, o erro APARECE.** Aqui o cadastro *é* a conversão: `await fetch` sem
+  `keepalive`, sem `.catch()` mudo, botão restaurado e mensagem na tela. A falha silenciosa do funil de
+  venda existe para não impedir uma compra — não há compra a proteger nesta página.
+- **Depoimento obrigatório**, mínimo de 40 caracteres, mais um checkbox **separado e opcional** para
+  autorizar uso em divulgação. Consentir com o cadastro e consentir com a divulgação são coisas
+  distintas e viajam separadas no payload (`consent_texto` e `uso_depoimento_texto`).
+- **A lista de convidados não está aqui, e nunca deve estar** — este repo é público. Ela vive numa
+  planilha que o fluxo consulta, uma linha por convidado; a confirmação e o depoimento voltam para a
+  mesma linha. A página só pergunta e mostra a resposta. Reenvio não sobrescreve o que a pessoa
+  escreveu da primeira vez.
+
+### Riscos e limites conhecidos desta página
+
+- **Enumeração.** Um formulário público que responde "está / não está na lista" é sondável. Mitigado
+  com `noindex`, path de webhook não adivinhável, **HTTP 200 nos dois vereditos** e mensagem genérica.
+  Com um punhado de convidados e nada devolvido além de sim/não, o risco é proporcional — **aceito,
+  não resolvido.**
+- **O acesso não é instantâneo ainda.** Sem a `api_key` da Curseduca, o nó que cria o membro nasce
+  desabilitado e o cadastro é feito à mão; por isso a obrigado promete "até 24 horas". Ligar o nó e
+  trocar essa frase são a mesma tarefa — não fazer um sem o outro.
+- **A planilha é o registro; o e-mail interno é só aviso.** Por isso o nó do e-mail tem
+  `onError: continueRegularOutput` — falha de aviso não pode derrubar uma confirmação já gravada. O que
+  **não** pode falhar em silêncio é a escrita na planilha: se ela cair, a pessoa vê o erro e reenvia.
 
 ## Instrumentação
 
@@ -137,6 +184,9 @@ nenhum ativo do cliente. Qualquer teste A/B antes de instrumentar é opinião co
 
 ## Pendências
 
+- **Gratuidade:** a planilha nativa do Google (`TODO-planilha-id`) + credencial de edição — é o que
+  bloqueia. Depois: `TODO-email-interno-da-sabina` (só aviso agora) e a `api_key` + `group.id` da
+  Curseduca (sem eles o cadastro é manual e a obrigado promete 24h).
 - Sem analytics/pixel (ver acima).
 - O `hero-sxsw.webp` (279K) é servido igual para desktop e mobile.
 - Prova social é institucional (palcos e marcas). Quando houver depoimentos reais de alunos, eles são
